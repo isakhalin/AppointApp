@@ -1,164 +1,119 @@
 // rafc - создает реакт компонент
 // clg  - console.log()
 
-import { boxSizing } from "@mui/system";
 import React from "react";
 
 export const Celendar = () => {
-  const mok = [
+  const day = [
     {
       title: "9:00",
-      start: 0,
-      end: 30,
     },
     {
       title: "9:30",
-      start: 31,
-      end: 60,
     },
     {
       title: "10:00",
-      start: 61,
-      end: 90,
     },
     {
       title: "10:30",
-      start: 91,
-      end: 120,
     },
     {
       title: "11:00",
-      start: 121,
-      end: 150,
     },
     {
       title: "11:30",
-      start: 151,
-      end: 180,
     },
     {
       title: "12:00",
-      start: 181,
-      end: 210,
     },
     {
       title: "12:30",
-      start: 211,
-      end: 240,
     },
     {
       title: "13:00",
-      start: 211,
-      end: 240,
     },
     {
       title: "13:30",
-      start: "",
-      end: "",
     },
     {
       title: "14:00",
-      start: "",
-      end: "",
     },
     {
       title: "14:30",
-      start: "",
-      end: "",
     },
     {
       title: "15:00",
-      start: "",
-      end: "",
     },
     {
       title: "15:30",
-      start: "",
-      end: "",
     },
     {
       title: "16:00",
-      start: "",
-      end: "",
     },
     {
       title: "16:30",
-      start: "",
-      end: "",
     },
     {
       title: "17:00",
-      start: "",
-      end: "",
     },
     {
       title: "17:30",
-      start: "",
-      end: "",
     },
     {
-      title: '18:00',
-      start: '',
-      end: '',
+      title: "18:00",
     },
     {
       title: "18:30",
-      start: "",
-      end: "",
     },
     {
-      title: '19:00',
-      start: '',
-      end: '',
+      title: "19:00",
     },
     {
       title: "19:30",
-      start: "",
-      end: "",
     },
     {
-      title: '20:00',
-      start: '',
-      end: '',
+      title: "20:00",
     },
     {
       title: "20:30",
-      start: "",
-      end: "",
     },
     {
-      title: '21:00',
-      start: '',
-      end: '',
+      title: "21:00",
     },
     {
       title: "21:30",
-      start: "",
-      end: "",
     },
   ];
-  const mok2 = [
+  const vks = [
     {
-      start: 0,
-      end: 45,
+      id: "434264361",
+      title: "new",
+      dayStartAt: new Date("2022-12-20 09:00:00").getTime(),
+      dayEndAt: new Date("2022-12-20 21:00:00").getTime(),
+      start: new Date("2022-12-20 09:30:00").getTime(),
+      end: new Date("2022-12-20 10:00:00").getTime(),
       styles: {
         position: "absolute",
-        top: "0",
-        backgroundColor: "#008d0e",
-        height: "45px",
+        top: 0,
+        backgroundColor: "#ed8550",
+        height: "30px",
         width: "400px",
         borderBottom: "1px solid black",
         boxSizing: "border-box",
       },
     },
     {
-      start: 46,
-      end: 75,
+      id: "43467345361",
+      title: "Вопросы общего образования",
+      dayStartAt: new Date("2022-12-20 09:00:00").getTime(),
+      dayEndAt: new Date("2022-12-20 21:00:00").getTime(),
+      start: new Date("2022-12-20 10:30:00").getTime(), // 1671523200000
+      end: new Date("2022-12-20 11:00:00").getTime(), // 1671526800000
       styles: {
         position: "absolute",
-        top: 76,
-        backgroundColor: "#008d0e",
-        height: "76px",
+        top: 90, // 30 минут это 30 пикселей. (start-dayStartAt)/60000
+        backgroundColor: "#ed8550",
+        height: "76px", // (end-start)/60000
         width: "400px",
         borderBottom: "1px solid black",
         boxSizing: "border-box",
@@ -168,8 +123,9 @@ export const Celendar = () => {
 
   return (
     <div className="calendar-wrp">
-      {mok.map((el, index) => (
+      {day.map((el) => (
         <div
+          key={el.title}
           style={{
             width: "400px",
             height: "30px",
@@ -180,8 +136,10 @@ export const Celendar = () => {
           {el.title}
         </div>
       ))}
-      {mok2.map((el) => (
-        <div style={el.styles}></div>
+      {vks.map((el) => (
+        <div key={el.start} style={el.styles}>
+          {el.title}
+        </div>
       ))}
     </div>
   );
