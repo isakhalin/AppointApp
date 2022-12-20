@@ -37,3 +37,11 @@
     transform: translateY(0px);
   }
 }
+
+.calendar-wrp {
+  position: relative;
+  margin: 100px auto;
+  width: 400px;
+  height: 780px;
+  border: 1px solid black;
+}
