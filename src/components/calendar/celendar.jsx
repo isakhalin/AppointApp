@@ -3,7 +3,7 @@
 
 import React from "react";
 
-export const Celendar = () => {
+export const Calendar = () => {
   const day = [
     {
       title: "9:00",

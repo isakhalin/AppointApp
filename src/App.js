@@ -1,13 +1,23 @@
 import React from 'react';
+
+// Import styles
 import './App.css';
-import { Celendar } from './components';
-import { VksConstructor } from './components/vksConstructor/vksConstructor';
+
+// Import custom comps
+import {
+  Calendar,
+  DateSelector,
+  VksConstructor,
+} from "./components";
 
 function App() {
   return (
     <div className="App">
-      <Celendar />
-      <VksConstructor />
+      <div className="content-wpr">
+        {/*<VksConstructor />*/}
+        <DateSelector/>
+        <Calendar/>
+      </div>
     </div>
   );
 }

@@ -1,1 +1,1 @@
-export * from './celendar.jsx'
+export * from './celendar.jsx';
