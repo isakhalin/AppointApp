@@ -3,6 +3,9 @@
 
 import React from "react";
 
+// Import custom comps
+import {VksConstructor} from "../vksConstructor";
+
 export const Calendar = () => {
   const day = [
     {
@@ -122,25 +125,28 @@ export const Calendar = () => {
   ];
 
   return (
-    <div className="calendar-wrp">
-      {day.map((el) => (
-        <div
-          key={el.title}
-          style={{
-            width: "400px",
-            height: "30px",
-            borderBottom: "1px solid black",
-            boxSizing: "border-box",
-          }}
-        >
-          {el.title}
-        </div>
-      ))}
-      {vks.map((el) => (
-        <div key={el.start} style={el.styles}>
-          {el.title}
-        </div>
-      ))}
+    <div>
+      <div className="calendar-wrp">
+        {day.map((el) => (
+          <div
+            key={el.title}
+            style={{
+              width: "400px",
+              height: "30px",
+              borderBottom: "1px solid black",
+              boxSizing: "border-box",
+            }}
+          >
+            {el.title}
+          </div>
+        ))}
+        {vks.map((el) => (
+          <div key={el.start} style={el.styles}>
+            {el.title}
+          </div>
+        ))}
+      </div>
+      <VksConstructor />
     </div>
   );
 };
