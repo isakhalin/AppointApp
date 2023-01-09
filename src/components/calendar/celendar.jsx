@@ -1,13 +1,50 @@
 // rafc - создает реакт компонент
 // clg  - console.log()
 
-import React from "react";
+import React, {useState} from "react";
 
 // Import custom comps
 import {VksConstructor} from "../vksConstructor";
 
 export const Calendar = () => {
-  const day = [
+  const [vks, setVks] = useState([
+    {
+      id: "434264361",
+      title: "new",
+      dayStartAt: new Date("2022-12-20 09:00:00").getTime(),
+      dayEndAt: new Date("2022-12-20 21:00:00").getTime(),
+      start: new Date("2022-12-20 09:30:00").getTime(),
+      end: new Date("2022-12-20 10:00:00").getTime(),
+      styles: {
+        position: "absolute",
+        top: 0,
+        backgroundColor: "#ed8550",
+        height: "30px",
+        width: "400px",
+        borderBottom: "1px solid black",
+        boxSizing: "border-box",
+      },
+    },
+    {
+      id: "43467345361",
+      title: "Вопросы общего образования",
+      dayStartAt: new Date("2022-12-20 09:00:00").getTime(),
+      dayEndAt: new Date("2022-12-20 21:00:00").getTime(),
+      start: new Date("2022-12-20 10:30:00").getTime(), // 1671523200000
+      end: new Date("2022-12-20 11:00:00").getTime(), // 1671526800000
+      styles: {
+        position: "absolute",
+        top: 90, // 30 минут это 30 пикселей. (start-dayStartAt)/60000
+        backgroundColor: "#ed8550",
+        height: "76px", // (end-start)/60000
+        width: "400px",
+        borderBottom: "1px solid black",
+        boxSizing: "border-box",
+      },
+    },
+  ])
+
+  const [day, setDay] = useState([
     {
       title: "9:00",
     },
@@ -86,43 +123,7 @@ export const Calendar = () => {
     {
       title: "21:30",
     },
-  ];
-  const vks = [
-    {
-      id: "434264361",
-      title: "new",
-      dayStartAt: new Date("2022-12-20 09:00:00").getTime(),
-      dayEndAt: new Date("2022-12-20 21:00:00").getTime(),
-      start: new Date("2022-12-20 09:30:00").getTime(),
-      end: new Date("2022-12-20 10:00:00").getTime(),
-      styles: {
-        position: "absolute",
-        top: 0,
-        backgroundColor: "#ed8550",
-        height: "30px",
-        width: "400px",
-        borderBottom: "1px solid black",
-        boxSizing: "border-box",
-      },
-    },
-    {
-      id: "43467345361",
-      title: "Вопросы общего образования",
-      dayStartAt: new Date("2022-12-20 09:00:00").getTime(),
-      dayEndAt: new Date("2022-12-20 21:00:00").getTime(),
-      start: new Date("2022-12-20 10:30:00").getTime(), // 1671523200000
-      end: new Date("2022-12-20 11:00:00").getTime(), // 1671526800000
-      styles: {
-        position: "absolute",
-        top: 90, // 30 минут это 30 пикселей. (start-dayStartAt)/60000
-        backgroundColor: "#ed8550",
-        height: "76px", // (end-start)/60000
-        width: "400px",
-        borderBottom: "1px solid black",
-        boxSizing: "border-box",
-      },
-    },
-  ];
+  ])
 
   return (
     <div>
@@ -146,7 +147,7 @@ export const Calendar = () => {
           </div>
         ))}
       </div>
-      <VksConstructor />
+      <VksConstructor vks={vks} setVks={setVks}/>
     </div>
   );
 };
