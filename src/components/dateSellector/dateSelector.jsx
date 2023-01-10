@@ -7,12 +7,13 @@ import {DesktopDatePicker} from "@mui/x-date-pickers/DesktopDatePicker";
 import TextField from "@mui/material/TextField";
 import {TimePicker} from "@mui/x-date-pickers/TimePicker";
 
-export const DateSelector = () => {
-  const [value, setValue] = useState(moment("2023-01-01T21:11:54"));
+export const DateSelector = ({daySelected, setDaySelected}) => {
+  const [value, setValue] = useState(moment(daySelected));
   console.log("VAL", value);
 
   const handleChange = (newValue) => {
-    setValue(newValue.format("x"));
+    setDaySelected(Number(newValue.format("x")))
+    //setValue(newValue.format("x"));
   };
 
   return (

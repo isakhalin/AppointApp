@@ -28,7 +28,7 @@ export const VksConstructor = ({vks, setVks}) => {
 
   const vksCreate = () => {
     const newVks = {
-      id: "43467345361",
+      id: Math.floor((Math.random() * 1000000000)),
       title: "Вопросы общего образования",
       dayStartAt: new Date("2023-01-09 09:00:00").getTime(),
       dayEndAt: new Date("2023-01-09 22:00:00").getTime(),
