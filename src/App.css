@@ -53,6 +53,8 @@
   /*max-width: 400px;*/
   /*width: 500px;*/
   min-width: 350px;
-  height: 780px;
+  /*height: 780px;*/
+  /*height: 600px;*/
+  height: 600px;
   border: 1px solid rgb(0, 0, 0);
 }

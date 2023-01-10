@@ -14,7 +14,7 @@ import {createAsyncThunk} from "@reduxjs/toolkit";
 //   }
 // );
 export const calendar = createAsyncThunk(
-  "calendar/fetchCalendar",
+  "calendarDay/fetchCalendar",
   async (calendar, {rejectedWithValue}) => {
     try {
       //TODO заюзать апишку для получения календаря с бека

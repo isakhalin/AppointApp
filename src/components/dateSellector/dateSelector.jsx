@@ -8,12 +8,10 @@ import TextField from "@mui/material/TextField";
 import {TimePicker} from "@mui/x-date-pickers/TimePicker";
 
 export const DateSelector = ({daySelected, setDaySelected}) => {
-  const [value, setValue] = useState(moment(daySelected));
-  console.log("VAL", value);
+  // const [value, setValue] = useState(moment(daySelected));
 
   const handleChange = (newValue) => {
-    setDaySelected(Number(newValue.format("x")))
-    //setValue(newValue.format("x"));
+    setDaySelected(Number(newValue.format("x")));
   };
 
   return (
@@ -23,7 +21,7 @@ export const DateSelector = ({daySelected, setDaySelected}) => {
           <DesktopDatePicker
             label="Дата бронирования"
             inputFormat="DD.MM.YYYY"
-            value={value}
+            value={daySelected}
             onChange={handleChange}
             renderInput={(params) => <TextField {...params} />}
           />
@@ -35,7 +33,7 @@ export const DateSelector = ({daySelected, setDaySelected}) => {
           {/*/>*/}
         </Stack>
       </LocalizationProvider>
-      <div>{`${value}`}</div>
+      {/*<div>{`${moment(daySelected)}`}</div>*/}
     </div>
   );
 };
