@@ -11,26 +11,22 @@ const initialState = {
               id: "434264361",
               title: "new",
               description: "",
-              dayStartAt: new Date("2022-12-20 09:00:00").getTime(),
-              dayEndAt: new Date("2022-12-20 21:00:00").getTime(),
-              start: new Date("2022-12-20 09:30:00").getTime(),
-              end: new Date("2022-12-20 10:00:00").getTime(),
+              start: 1675204200000, // new Date("2023-02-01 09:30:00").getTime()
+              end: 1675206000000,   // new Date("2023-02-01 10:00:00").getTime()
               styles: {
                 top: 0,
-                height: "30px",
+                height: "5%",
               },
             },
             {
               id: "43467345361",
               title: "Вопросы общего образования образования образования образования образования образования",
               description: "",
-              dayStartAt: new Date("2022-12-20 09:00:00").getTime(),
-              dayEndAt: new Date("2022-12-20 21:00:00").getTime(),
-              start: new Date("2022-12-20 10:30:00").getTime(), // 1671523200000
-              end: new Date("2022-12-20 11:00:00").getTime(), // 1671526800000
+              start: 1675207800000, // new Date("2023-02-01 10:30:00").getTime()
+              end: 1675212300000,   // Date("2023-02-01 11:45:00").getTime()
               styles: {
-                top: 90, // 30 минут это 30 пикселей. (start-dayStartAt)/60000
-                height: "76px", // (end-start)/60000
+                top: "15%", // 1 минута это 0,166666%. Рассчет для пикселей: 30 минут это 30px (start-dayStartAt)/60000
+                height: "12.5%", // Рассчет для процентов 0.166666667 * мин. Рассчет для пикселей: (end-start)/60000
               },
             },
           ],

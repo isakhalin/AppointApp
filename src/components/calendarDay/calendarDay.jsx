@@ -32,10 +32,10 @@ export const CalendarDay = ({daySelected}) => { // В daySelected приходи
       id: "434264361",
       title: "new",
       description: "",
-      // dayStartAt: new Date("2022-12-20 09:00:00").getTime(),
-      // dayEndAt: new Date("2022-12-20 21:00:00").getTime(),
-      start: new Date("2022-12-20 09:30:00").getTime(),
-      end: new Date("2022-12-20 10:00:00").getTime(),
+      // dayStartAt: new Date("2023-02-01 09:00:00").getTime(),
+      // dayEndAt: new Date("2023-02-01 21:00:00").getTime(),
+      start: new Date("2023-02-01 09:30:00").getTime(),
+      end: new Date("2023-02-01 10:00:00").getTime(),
       styles: {
         top: 0,
         height: "5%",
@@ -47,8 +47,8 @@ export const CalendarDay = ({daySelected}) => { // В daySelected приходи
       description: "",
       // dayStartAt: new Date("2022-12-20 09:00:00").getTime(),
       // dayEndAt: new Date("2022-12-20 21:00:00").getTime(),
-      start: new Date("2022-12-20 10:30:00").getTime(), // 1671523200000
-      end: new Date("2022-12-20 11:45:00").getTime(), // 1671526800000
+      start: new Date("2023-02-01 10:30:00").getTime(), // 1671523200000
+      end: new Date("2023-02-01 11:45:00").getTime(), // 1671526800000
       styles: {
         top: "15%", // 1 минута это 0,166666%. Рассчет для пикселей: 30 минут это 30px (start-dayStartAt)/60000
         height: "12.5%", // Рассчет для процентов 0.166666667 * мин. Рассчет для пикселей: (end-start)/60000
@@ -169,7 +169,7 @@ export const CalendarDay = ({daySelected}) => { // В daySelected приходи
           </div>
         ))}
       </div>
-      <VksConstructor vks={vks} setVks={setVks}/>
+      <VksConstructor vks={vks} setVks={setVks} calcDayStart={calcDayStart()}/>
     </div>
   );
 };

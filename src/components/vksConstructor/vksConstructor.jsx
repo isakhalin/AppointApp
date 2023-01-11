@@ -11,16 +11,9 @@ import {AdapterMoment} from "@mui/x-date-pickers/AdapterMoment";
 import moment from "moment/moment";
 import Button from "@mui/material/Button";
 
-export const VksConstructor = ({vks, setVks, daySelected}) => {
+export const VksConstructor = ({vks, setVks, calcDayStart}) => {
   const [startValue, setStartValue] = useState(moment("2023-01-09T09:45:00"));
   const [endValue, setEndValue] = useState(moment("2023-01-09T10:15:00"));
-  // console.log("startValue", startValue.format("x"));
-  // console.log("endValue", endValue.format("x"));
-  // console.log("top", (startValue.format("x") - new Date("2023-01-09 09:00:00").getTime()) / 60000)
-  // console.log("height", (endValue.format("x") - startValue.format("x")) / 60000) // 75
-  // console.log("Start", startValue)
-  // console.log("End", endValue)
-  // console.log("mathDate", endValue - startValue)
 
   // const handleChange = (newValue) => {
   //   setValue(newValue);
@@ -30,23 +23,14 @@ export const VksConstructor = ({vks, setVks, daySelected}) => {
     const newVks = {
       id: Math.floor((Math.random() * 1000000000)),
       title: "Вопросы общего образования",
-      //dayStartAt: new Date("2023-01-09 09:00:00").getTime(),
-      //dayEndAt: new Date("2023-01-09 22:00:00").getTime(),
       start: startValue.format("x"), // 1671523200000
       end: endValue.format("x"), // 1671526800000
       styles: {
-        //position: "absolute",
-        top: (startValue.format("x") - new Date("2023-01-09 09:00:00").getTime()) / 60000, // 30 минут это 30 пикселей. (start-dayStartAt)/60000
-        //backgroundColor: "#ed8550",
+        top: (startValue.format("x") - calcDayStart) / 60000, // 30 минут это 30 пикселей. (start-dayStartAt)/60000
         height: `${(endValue.format("x") - startValue.format("x")) / 60000}px`, // (end-start)/60000
-        //width: "400px",
-        //borderBottom: "1px solid black",
-        //boxSizing: "border-box",
       }
     }
-
     setVks([...vks, newVks]);
-    // console.log(vks)
   }
 
   return (
