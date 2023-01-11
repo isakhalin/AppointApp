@@ -11,27 +11,31 @@ import {AdapterMoment} from "@mui/x-date-pickers/AdapterMoment";
 import moment from "moment/moment";
 import Button from "@mui/material/Button";
 
-export const VksConstructor = ({vks, setVks, calcDayStart}) => {
-  const [startValue, setStartValue] = useState(moment("2023-01-09T09:45:00"));
-  const [endValue, setEndValue] = useState(moment("2023-01-09T10:15:00"));
+// Import Actions
+import { setVks } from "../../store/reducers/calendarSlice"
+import {useDispatch} from "react-redux";
 
+export const VksConstructor = ({calcDayStart, calcDayEnd}) => {
+  const [startValue, setStartValue] = useState(moment(calcDayStart));
+  const [endValue, setEndValue] = useState(moment(calcDayStart));
+  const dispatch = useDispatch();
   // const handleChange = (newValue) => {
   //   setValue(newValue);
   // };
-
+  console.log('calcDayStart',calcDayStart, 'moment(calcDayStart)', moment(calcDayStart))
   const vksCreate = () => {
     const newVks = {
       id: Math.floor((Math.random() * 1000000000)),
-      title: "Вопросы общего образования",
-      start: startValue.format("x"), // 1671523200000
-      end: endValue.format("x"), // 1671526800000
-      styles: {
-        top: (startValue.format("x") - calcDayStart) / 60000, // 30 минут это 30 пикселей. (start-dayStartAt)/60000
-        height: `${(endValue.format("x") - startValue.format("x")) / 60000}px`, // (end-start)/60000
-      }
+      title: "Вопросы общего образования!",
+      description: "",
+      start: Number(startValue.format("x")), // 1671523200000
+      end: Number(endValue.format("x")), // 1671526800000
     }
-    setVks([...vks, newVks]);
+    dispatch(setVks(newVks));
+    // setVks([...vks, newVks]);
   }
+
+  console.log("STARTVALUE", startValue)
 
   return (
     <LocalizationProvider dateAdapter={AdapterMoment}>
@@ -41,6 +45,7 @@ export const VksConstructor = ({vks, setVks, calcDayStart}) => {
           value={startValue}
           label="Начало ВКС"
           onChange={(newValue) => {
+            console.log("newvalue",newValue.format('x'))
             setStartValue(newValue);
           }}
           // minTime={moment('2018-01-01T08:00')}

@@ -3,37 +3,43 @@
 
 import React, {useState} from "react";
 
+// React ToolKit
+import {useSelector} from "react-redux";
+
 // Import custom comps
 import {VksConstructor} from "../vksConstructor";
+import {VksElement} from "./vksElement";
 
 export const CalendarDay = ({daySelected}) => { // В daySelected приходит дата в милисекундах
   const [dayStartAt, setDayStartAt] = useState("09:00:00");
   const [dayEndAt, setDayEndAt] = useState("21:00:00")
   // TODO Заменить на данные из редюсера
-  const [vks, setVks] = useState([
-    {
-      id: "434264361",
-      title: "new",
-      description: "",
-      start: 1675204200000, // new Date("2023-02-01 09:30:00").getTime()
-      end: 1675206000000,   // new Date("2023-02-01 10:00:00").getTime()
-      styles: {
-        top: 0,
-        height: "5%",
-      },
-    },
-    {
-      id: "43467345361",
-      title: "Вопросы общего образования образования образования образования образования образования",
-      description: "",
-      start: 1675207800000, // new Date("2023-02-01 10:30:00").getTime()
-      end: 1675212300000,   // Date("2023-02-01 11:45:00").getTime()
-      styles: {
-        top: "15%", // 1 минута это 0,166666%. Рассчет для пикселей: 30 минут это 30px (start-dayStartAt)/60000
-        height: "12.5%", // Рассчет для процентов 0.166666667 * мин. Рассчет для пикселей: (end-start)/60000
-      },
-    },
-  ])
+  const { calendar } = useSelector((state) => state.calendarReducer);
+  // const [vks, setVks] = useState([
+  //   {
+  //     id: "434264361",
+  //     title: "new",
+  //     description: "",
+  //     start: 1675204200000, // new Date("2023-02-01 09:30:00").getTime()
+  //     end: 1675206000000,   // new Date("2023-02-01 10:00:00").getTime()
+  //   },
+  //   {
+  //     id: "43467345361",
+  //     title: "Вопросы общего образования образования образования образования образования образования",
+  //     description: "",
+  //     start: 1675207800000, // new Date("2023-02-01 10:30:00").getTime()
+  //     end: 1675212300000,   // Date("2023-02-01 11:45:00").getTime()
+  //   },
+  // ])
+
+  const date = new Date(daySelected);
+  console.log("date", date)
+  console.log("getDay", date.getDate())
+
+
+  const vks = calendar[date.getFullYear()][date.getMonth()+1][date.getDate()];
+  console.log("VKS", vks)
+  //console.log(vks)
 
   const day = [
     {
@@ -115,13 +121,6 @@ export const CalendarDay = ({daySelected}) => { // В daySelected приходи
     //   title: "21:30",
     // },
   ];
-  const commonStyles = {
-    position: "absolute",
-    backgroundColor: "#ed8550",
-    width: "100%",
-    borderBottom: "1px solid black",
-    boxSizing: "border-box",
-  }
 
   const calcDayStart = () => {
     const date = new Date(daySelected).toLocaleDateString().split(".");
@@ -149,13 +148,14 @@ export const CalendarDay = ({daySelected}) => { // В daySelected приходи
             {el.title}
           </div>
         ))}
-        {vks.map((el) => (
-          <div key={el.start} style={{...commonStyles, ...el.styles}}>
-            {el.title}
-          </div>
+        {vks?.map((el) => (
+          // <div key={el.start} style={{...commonStyles, ...el.styles}}>
+          //   {el.title}
+          // </div>
+          <VksElement key={el.start} element={el} calcDayStart={calcDayStart()}/>
         ))}
       </div>
-      <VksConstructor vks={vks} setVks={setVks}/>
+      <VksConstructor calcDayStart={calcDayStart()} calcDayEnd={calcDayEnd()}/>
     </div>
   );
 };
