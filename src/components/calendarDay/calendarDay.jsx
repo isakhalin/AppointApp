@@ -1,7 +1,7 @@
 // rafc - создает реакт компонент
 // clg  - console.log()
 
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 
 // React ToolKit
 import {useSelector} from "react-redux";
@@ -9,12 +9,13 @@ import {useSelector} from "react-redux";
 // Import custom comps
 import {VksConstructor} from "../vksConstructor";
 import {VksElement} from "./vksElement";
+import Button from "@mui/material/Button";
 
 export const CalendarDay = ({daySelected}) => { // В daySelected приходит дата в милисекундах
   const [dayStartAt, setDayStartAt] = useState("09:00:00");
   const [dayEndAt, setDayEndAt] = useState("21:00:00")
   // TODO Заменить на данные из редюсера
-  const { calendar } = useSelector((state) => state.calendarReducer);
+  const {calendar} = useSelector((state) => state.calendarReducer);
   // const [vks, setVks] = useState([
   //   {
   //     id: "434264361",
@@ -33,13 +34,8 @@ export const CalendarDay = ({daySelected}) => { // В daySelected приходи
   // ])
 
   const date = new Date(daySelected);
-  console.log("date", date)
-  console.log("getDay", date.getDate())
 
-
-  const vks = calendar[date.getFullYear()][date.getMonth()+1][date.getDate()];
-  console.log("VKS", vks)
-  //console.log(vks)
+  const vks = calendar[date.getFullYear()]?.[date.getMonth() + 1]?.[date.getDate()];
 
   const day = [
     {
@@ -127,7 +123,7 @@ export const CalendarDay = ({daySelected}) => { // В daySelected приходи
     return new Date(`${date[2]}-${date[1]}-${date[0]} ${dayStartAt}`).getTime();
   }
 
-  const calcDayEnd = () => {
+  const calcDayEnd = (times) => {
     const date = new Date(daySelected).toLocaleDateString().split(".");
     return new Date(`${date[2]}-${date[1]}-${date[0]} ${dayEndAt}`).getTime();
   }
@@ -149,10 +145,7 @@ export const CalendarDay = ({daySelected}) => { // В daySelected приходи
           </div>
         ))}
         {vks?.map((el) => (
-          // <div key={el.start} style={{...commonStyles, ...el.styles}}>
-          //   {el.title}
-          // </div>
-          <VksElement key={el.start} element={el} calcDayStart={calcDayStart()}/>
+          <VksElement key={el.start} element={el} calcDayStart={calcDayStart(daySelected)}/>
         ))}
       </div>
       <VksConstructor calcDayStart={calcDayStart()} calcDayEnd={calcDayEnd()}/>

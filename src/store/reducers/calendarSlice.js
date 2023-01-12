@@ -1,4 +1,4 @@
-import {createSlice} from "@reduxjs/toolkit";
+import {createSlice, current} from "@reduxjs/toolkit";
 // import {calendarDay} from "../actions/actions";
 
 const initialState = {
@@ -54,13 +54,78 @@ const calendarSlice = createSlice({
   initialState,
   reducers: {
     setVks(state, action) {
-
       const date = new Date(action.payload.start);
-      console.log("date", date)
-      // console.log("state", state.calendar)
-      state.calendar = {...state.calendar, [2023]: {...state.calendar[2023], [2]: {...state.calendar[2023][2], [1]: [...state.calendar[2023][2][1], action.payload]}}} //[2023][2][1].push(action.payload)
-      //state.profile = action.payload;
+      // state.calendar = {
+      //   ...state.calendar,
+      //   [date.getFullYear()]: {
+      //     ...state.calendar[date.getFullYear()],
+      //     [date.getMonth() + 1]: {
+      //       ...state.calendar[date.getFullYear()][date.getMonth() + 1],
+      //       [date.getDate()]: [
+      //         ...state.calendar[date.getFullYear()][date.getMonth() + 1][date.getDate()],
+      //         action.payload
+      //       ]
+      //     }
+      //   }
+      // }
+      if(!state.calendar[date.getFullYear()]){
+        state.calendar = {...state.calendar, [date.getFullYear()]: {}}
+      }
+      if(!state.calendar[date.getFullYear()][date.getMonth() + 1]) {
+        state.calendar[date.getFullYear()] = {...state.calendar[date.getFullYear()], [date.getMonth() + 1]: {}}
+      }
+      if(!state.calendar[date.getFullYear()][date.getMonth() + 1][date.getDate()]){
+        state.calendar[date.getFullYear()][date.getMonth() + 1] = {...state.calendar[date.getFullYear()][date.getMonth() + 1], [date.getDate()]: []}
+      }
+
+      state.calendar[date.getFullYear()][date.getMonth() + 1][date.getDate()].push(action.payload)
     },
+    deleteVks(state, action) {
+      const date = new Date(action.payload.start);
+      const originalVks = current(state.calendar[date.getFullYear()][date.getMonth() + 1][date.getDate()])
+      // const newVks = [];
+      // originalVks.map((el)=>{
+      //   if (el.id !== action.payload.id) {
+      //     newVks.push(el)
+      //   }
+      // })
+      originalVks.map((el) => {
+        if(el.id === action.payload.id){
+          originalVks.indexOf(el);
+          originalVks.splice(1, 1)
+        }
+      })
+
+      console.log("ORIG",originalVks )
+
+      //state.calendar[date.getFullYear()][date.getMonth() + 1][date.getDate()] = [...newVks]
+
+      // state.calendar = {
+      //   ...state.calendar,
+      //   [date.getFullYear()]: {
+      //     ...state.calendar[date.getFullYear()],
+      //     [date.getMonth() + 1]: {
+      //       ...state.calendar[date.getFullYear()][date.getMonth() + 1],
+      //       [date.getDate()]: [
+      //         ...state.calendar[date.getFullYear()][date.getMonth() + 1][date.getDate()]
+      //       ]
+      //     }
+      //   }
+      // }
+
+      // const tempVks = [state.calendar]
+      // console.log("tempVks", tempVks);
+      // const newVks = tempVks.map((el) => {
+      //   if (el.id !== action.payload.id) {
+      //       return el
+      //     }
+      // })
+      // console.log("state", state)
+
+    },
+    editVks(state, action) {
+
+    }
   },
   extraReducers: {
     // [fetchUserProfile.pending.type]: (state, action) => {
@@ -103,4 +168,4 @@ const calendarSlice = createSlice({
 })
 
 export const calendarReducer = calendarSlice.reducer;
-export const {setVks} = calendarSlice.actions;
+export const {setVks, deleteVks} = calendarSlice.actions;

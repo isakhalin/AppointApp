@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 //import dayjs from "dayjs";
 import Stack from "@mui/material/Stack";
 import TextField from "@mui/material/TextField";
@@ -12,7 +12,7 @@ import moment from "moment/moment";
 import Button from "@mui/material/Button";
 
 // Import Actions
-import { setVks } from "../../store/reducers/calendarSlice"
+import {setVks} from "../../store/reducers/calendarSlice"
 import {useDispatch} from "react-redux";
 
 export const VksConstructor = ({calcDayStart, calcDayEnd}) => {
@@ -22,7 +22,6 @@ export const VksConstructor = ({calcDayStart, calcDayEnd}) => {
   // const handleChange = (newValue) => {
   //   setValue(newValue);
   // };
-  console.log('calcDayStart',calcDayStart, 'moment(calcDayStart)', moment(calcDayStart))
   const vksCreate = () => {
     const newVks = {
       id: Math.floor((Math.random() * 1000000000)),
@@ -32,10 +31,12 @@ export const VksConstructor = ({calcDayStart, calcDayEnd}) => {
       end: Number(endValue.format("x")), // 1671526800000
     }
     dispatch(setVks(newVks));
-    // setVks([...vks, newVks]);
   }
 
-  console.log("STARTVALUE", startValue)
+  useEffect(() => {
+    setStartValue(moment(calcDayStart));
+    setEndValue(moment(calcDayStart));
+  }, [calcDayStart])
 
   return (
     <LocalizationProvider dateAdapter={AdapterMoment}>
@@ -45,7 +46,6 @@ export const VksConstructor = ({calcDayStart, calcDayEnd}) => {
           value={startValue}
           label="Начало ВКС"
           onChange={(newValue) => {
-            console.log("newvalue",newValue.format('x'))
             setStartValue(newValue);
           }}
           // minTime={moment('2018-01-01T08:00')}

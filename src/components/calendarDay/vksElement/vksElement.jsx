@@ -1,5 +1,9 @@
 import React from 'react';
 import styled from '@emotion/styled'
+import Button from "@mui/material/Button";
+import {useDispatch} from "react-redux";
+
+import {deleteVks} from "../../../store/reducers/calendarSlice"
 
 const percentPerMinute = 0.166666667;
 
@@ -14,10 +18,20 @@ const StyledDiv = styled.div`
 `
 
 export const VksElement = ({element, calcDayStart}) => {
+  const dispatch = useDispatch();
+
+  const handleDeleteVks = () => {
+    dispatch(deleteVks(element));
+  }
 
   return (
     <StyledDiv element={element} calcDayStart={calcDayStart}>
       {element.title}
+      <Button
+        onClick={handleDeleteVks}
+      >
+        X
+      </Button>
     </StyledDiv>
   );
 };
