@@ -13,11 +13,12 @@ import Box from "@mui/material/Box";
 // Import custom comps
 import {VksConstructor} from "../vksConstructor";
 import {VksElement} from "./vksElement";
-import {MyModal} from "../myModal";
+import {MyModal} from "../modals";
 
 export const CalendarDay = ({daySelected}) => { // В daySelected приходит дата в милисекундах
   const [dayStartAt, setDayStartAt] = useState("09:00:00");
-  const [dayEndAt, setDayEndAt] = useState("21:00:00")
+  const [dayEndAt, setDayEndAt] = useState("21:00:00");
+  const [modalOpen, setModalOpen] = useState(false);
   // TODO Заменить на данные из редюсера
   const {calendar} = useSelector((state) => state.calendarReducer);
   // const [vks, setVks] = useState([
@@ -36,6 +37,11 @@ export const CalendarDay = ({daySelected}) => { // В daySelected приходи
   //     end: 1675212300000,   // Date("2023-02-01 11:45:00").getTime()
   //   },
   // ])
+
+  const handleModalOpen = (el) => {
+    console.log("EL", el)
+    setModalOpen(true);
+  }
 
   const date = new Date(daySelected);
 
@@ -136,37 +142,29 @@ export const CalendarDay = ({daySelected}) => { // В daySelected приходи
     <div>
       <div className="calendar-wrp">
         {day.map((el) => (
-          // <div
-          //   key={el.title}
-          //   style={{
-          //     width: "100%",
-          //     height: "5%",
-          //     borderBottom: "1px solid black",
-          //     boxSizing: "border-box",
-          //     fontSize: "9px",
-          //     textAlign: "left",
-          //     paddingLeft: "2px"
-          //   }}
-          // >
-          //   {el.title}
-          // </div>
-          <MyModal
-            buttonProps={{
+          <div
+            key={el.title}
+            style={{
               width: "100%",
               height: "5%",
               borderBottom: "1px solid black",
               boxSizing: "border-box",
               fontSize: "9px",
               textAlign: "left",
-              paddingLeft: "2px"
+              paddingLeft: "2px",
+              cursor: "pointer",
             }}
-            buttonTitle={{title: `${el.title}`}}
+            onClick={handleModalOpen}
           >
-            <VksConstructor calcDayStart={calcDayStart()} calcDayEnd={calcDayEnd()}/>
-          </MyModal>
+            {el.title}
+          </div>
         ))}
         {vks?.map((el) => (
-          <VksElement key={el.start} element={el} calcDayStart={calcDayStart(daySelected)}/>
+          <VksElement
+            key={el.start}
+            element={el}
+            calcDayStart={calcDayStart(daySelected)}
+          />
         ))}
       </div>
 
@@ -182,15 +180,7 @@ export const CalendarDay = ({daySelected}) => { // В daySelected приходи
           // width: { xs: 150, sm: 200 },
         }}
       >
-        <MyModal
-          buttonProps={{
-            fullWidth: true,
-            variant: "contained",
-            size: "large",
-            sx: {marginBottom: "20px"},
-          }}
-          buttonTitle={{title: "Создать ВКС"}}
-        >
+        <MyModal modalOpen={modalOpen} setModalOpen={setModalOpen}>
           <VksConstructor calcDayStart={calcDayStart()} calcDayEnd={calcDayEnd()}/>
         </MyModal>
       </Box>

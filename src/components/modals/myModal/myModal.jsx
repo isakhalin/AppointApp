@@ -27,26 +27,26 @@ const style = {
   transition: 'transform 3s'
 };
 
-export const MyModal = ({buttonProps, buttonTitle, children}) => {
-  const [open, setOpen] = useState(false);
+export const MyModal = ({modalOpen, setModalOpen, children}) => {
+
   // const [error, setError] = useState(null);
 
-  const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
+  // const handleOpen = () => setModalOpen(true);
+  const handleClose = () => setModalOpen(false);
 
   // Добавление сеттера в пропсы children для закрытия модального окна
   children = cloneElement(children, {...children.props, handleClose})
 
   return (
-    <div>
-      <Button
-        {...buttonProps}
-        onClick={handleOpen}
-      >
-        {buttonTitle.title}
-      </Button>
+    // <div>
+    //   <Button
+    //     {...buttonProps}
+    //     onClick={handleOpen}
+    //   >
+    //     {buttonTitle.title}
+    //   </Button>
       <Modal
-        open={open}
+        open={modalOpen}
         onClose={handleClose}
         slotProps={{
           backdrop: {
@@ -67,6 +67,6 @@ export const MyModal = ({buttonProps, buttonTitle, children}) => {
           {children}
         </Box>
       </Modal>
-    </div>
+    // </div>
   );
 };
