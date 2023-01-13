@@ -6,10 +6,14 @@ import React, {useEffect, useState} from "react";
 // React ToolKit
 import {useSelector} from "react-redux";
 
+// Import MUI Comps
+import Button from "@mui/material/Button";
+import Box from "@mui/material/Box";
+
 // Import custom comps
 import {VksConstructor} from "../vksConstructor";
 import {VksElement} from "./vksElement";
-import Button from "@mui/material/Button";
+import {MyModal} from "../myModal";
 
 export const CalendarDay = ({daySelected}) => { // В daySelected приходит дата в милисекундах
   const [dayStartAt, setDayStartAt] = useState("09:00:00");
@@ -132,23 +136,66 @@ export const CalendarDay = ({daySelected}) => { // В daySelected приходи
     <div>
       <div className="calendar-wrp">
         {day.map((el) => (
-          <div
-            key={el.title}
-            style={{
+          // <div
+          //   key={el.title}
+          //   style={{
+          //     width: "100%",
+          //     height: "5%",
+          //     borderBottom: "1px solid black",
+          //     boxSizing: "border-box",
+          //     fontSize: "9px",
+          //     textAlign: "left",
+          //     paddingLeft: "2px"
+          //   }}
+          // >
+          //   {el.title}
+          // </div>
+          <MyModal
+            buttonProps={{
               width: "100%",
               height: "5%",
               borderBottom: "1px solid black",
               boxSizing: "border-box",
+              fontSize: "9px",
+              textAlign: "left",
+              paddingLeft: "2px"
             }}
+            buttonTitle={{title: `${el.title}`}}
           >
-            {el.title}
-          </div>
+            <VksConstructor calcDayStart={calcDayStart()} calcDayEnd={calcDayEnd()}/>
+          </MyModal>
         ))}
         {vks?.map((el) => (
           <VksElement key={el.start} element={el} calcDayStart={calcDayStart(daySelected)}/>
         ))}
       </div>
-      <VksConstructor calcDayStart={calcDayStart()} calcDayEnd={calcDayEnd()}/>
+
+      <Box
+        component="div"
+        sx={{
+          display: "flex",
+          justifyContent: "center",
+          flexWrap: "wrap",
+          width: "100%",
+          m: "0 auto",
+          textAlign: "center",
+          // width: { xs: 150, sm: 200 },
+        }}
+      >
+        <MyModal
+          buttonProps={{
+            fullWidth: true,
+            variant: "contained",
+            size: "large",
+            sx: {marginBottom: "20px"},
+          }}
+          buttonTitle={{title: "Создать ВКС"}}
+        >
+          <VksConstructor calcDayStart={calcDayStart()} calcDayEnd={calcDayEnd()}/>
+        </MyModal>
+      </Box>
+
+
     </div>
   );
 };

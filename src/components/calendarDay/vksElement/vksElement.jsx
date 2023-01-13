@@ -24,6 +24,10 @@ export const VksElement = ({element, calcDayStart}) => {
     dispatch(deleteVks(element));
   }
 
+  const handleEditVks = () => {
+    // dispatch()
+  }
+
   return (
     <StyledDiv element={element} calcDayStart={calcDayStart}>
       {element.title}
@@ -31,6 +35,11 @@ export const VksElement = ({element, calcDayStart}) => {
         onClick={handleDeleteVks}
       >
         X
+      </Button>
+      <Button
+        onClick={handleEditVks}
+      >
+        Edit
       </Button>
     </StyledDiv>
   );

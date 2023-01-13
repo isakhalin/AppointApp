@@ -55,76 +55,31 @@ const calendarSlice = createSlice({
   reducers: {
     setVks(state, action) {
       const date = new Date(action.payload.start);
-      // state.calendar = {
-      //   ...state.calendar,
-      //   [date.getFullYear()]: {
-      //     ...state.calendar[date.getFullYear()],
-      //     [date.getMonth() + 1]: {
-      //       ...state.calendar[date.getFullYear()][date.getMonth() + 1],
-      //       [date.getDate()]: [
-      //         ...state.calendar[date.getFullYear()][date.getMonth() + 1][date.getDate()],
-      //         action.payload
-      //       ]
-      //     }
-      //   }
-      // }
-      if(!state.calendar[date.getFullYear()]){
+      if (!state.calendar[date.getFullYear()]) {
         state.calendar = {...state.calendar, [date.getFullYear()]: {}}
       }
-      if(!state.calendar[date.getFullYear()][date.getMonth() + 1]) {
+      if (!state.calendar[date.getFullYear()][date.getMonth() + 1]) {
         state.calendar[date.getFullYear()] = {...state.calendar[date.getFullYear()], [date.getMonth() + 1]: {}}
       }
-      if(!state.calendar[date.getFullYear()][date.getMonth() + 1][date.getDate()]){
-        state.calendar[date.getFullYear()][date.getMonth() + 1] = {...state.calendar[date.getFullYear()][date.getMonth() + 1], [date.getDate()]: []}
+      if (!state.calendar[date.getFullYear()][date.getMonth() + 1][date.getDate()]) {
+        state.calendar[date.getFullYear()][date.getMonth() + 1] = {
+          ...state.calendar[date.getFullYear()][date.getMonth() + 1],
+          [date.getDate()]: []
+        }
       }
 
       state.calendar[date.getFullYear()][date.getMonth() + 1][date.getDate()].push(action.payload)
     },
+
     deleteVks(state, action) {
       const date = new Date(action.payload.start);
-      const originalVks = current(state.calendar[date.getFullYear()][date.getMonth() + 1][date.getDate()])
-      // const newVks = [];
-      // originalVks.map((el)=>{
-      //   if (el.id !== action.payload.id) {
-      //     newVks.push(el)
-      //   }
-      // })
-      originalVks.map((el) => {
-        if(el.id === action.payload.id){
-          originalVks.indexOf(el);
-          originalVks.splice(1, 1)
-        }
-      })
-
-      console.log("ORIG",originalVks )
-
-      //state.calendar[date.getFullYear()][date.getMonth() + 1][date.getDate()] = [...newVks]
-
-      // state.calendar = {
-      //   ...state.calendar,
-      //   [date.getFullYear()]: {
-      //     ...state.calendar[date.getFullYear()],
-      //     [date.getMonth() + 1]: {
-      //       ...state.calendar[date.getFullYear()][date.getMonth() + 1],
-      //       [date.getDate()]: [
-      //         ...state.calendar[date.getFullYear()][date.getMonth() + 1][date.getDate()]
-      //       ]
-      //     }
-      //   }
-      // }
-
-      // const tempVks = [state.calendar]
-      // console.log("tempVks", tempVks);
-      // const newVks = tempVks.map((el) => {
-      //   if (el.id !== action.payload.id) {
-      //       return el
-      //     }
-      // })
-      // console.log("state", state)
-
+      state.calendar[date.getFullYear()][date.getMonth() + 1][date.getDate()] = state.calendar[date.getFullYear()][date.getMonth() + 1][date.getDate()].filter(el => el.id !== action.payload.id)
     },
-    editVks(state, action) {
 
+    editVks(state, action) {
+      const date = new Date(action.payload.start);
+      state.calendar[date.getFullYear()][date.getMonth() + 1][date.getDate()] = state.calendar[date.getFullYear()][date.getMonth() + 1][date.getDate()].filter(el => el.id !== action.payload.id)
+      state.calendar[date.getFullYear()][date.getMonth() + 1][date.getDate()] = []
     }
   },
   extraReducers: {
