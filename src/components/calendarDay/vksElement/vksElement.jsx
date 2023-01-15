@@ -17,15 +17,15 @@ const StyledDiv = styled.div`
   box-sizing: border-box;
 `
 
-export const VksElement = ({element, calcDayStart}) => {
+export const VksElement = ({element, calcDayStart, handleModalOpen}) => {
   const dispatch = useDispatch();
 
   const handleDeleteVks = () => {
     dispatch(deleteVks(element));
   }
 
-  const handleEditVks = () => {
-    // dispatch()
+  const handleEditVks = (element) => {
+    handleModalOpen(element)
   }
 
   return (
@@ -37,7 +37,7 @@ export const VksElement = ({element, calcDayStart}) => {
         X
       </Button>
       <Button
-        onClick={handleEditVks}
+        onClick={() => handleEditVks(element)}
       >
         Edit
       </Button>

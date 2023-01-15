@@ -19,27 +19,14 @@ export const CalendarDay = ({daySelected}) => { // В daySelected приходи
   const [dayStartAt, setDayStartAt] = useState("09:00:00");
   const [dayEndAt, setDayEndAt] = useState("21:00:00");
   const [modalOpen, setModalOpen] = useState(false);
-  // TODO Заменить на данные из редюсера
+  const [currentEl, setCurrentEl] = useState({title: ``})
+
   const {calendar} = useSelector((state) => state.calendarReducer);
-  // const [vks, setVks] = useState([
-  //   {
-  //     id: "434264361",
-  //     title: "new",
-  //     description: "",
-  //     start: 1675204200000, // new Date("2023-02-01 09:30:00").getTime()
-  //     end: 1675206000000,   // new Date("2023-02-01 10:00:00").getTime()
-  //   },
-  //   {
-  //     id: "43467345361",
-  //     title: "Вопросы общего образования образования образования образования образования образования",
-  //     description: "",
-  //     start: 1675207800000, // new Date("2023-02-01 10:30:00").getTime()
-  //     end: 1675212300000,   // Date("2023-02-01 11:45:00").getTime()
-  //   },
-  // ])
 
   const handleModalOpen = (el) => {
-    console.log("EL", el)
+    console.log("EL", el);
+    //setDayStartAt(`${el}:00`);
+    setCurrentEl(el);
     setModalOpen(true);
   }
 
@@ -47,66 +34,77 @@ export const CalendarDay = ({daySelected}) => { // В daySelected приходи
 
   const vks = calendar[date.getFullYear()]?.[date.getMonth() + 1]?.[date.getDate()];
 
+  const calcDayStart = () => {
+    const date = new Date(daySelected).toLocaleDateString().split(".");
+    return new Date(`${date[2]}-${date[1]}-${date[0]} ${dayStartAt}`).getTime();
+  }
+
+  const calcDayEnd = () => {
+    const date = new Date(daySelected).toLocaleDateString().split(".");
+    return new Date(`${date[2]}-${date[1]}-${date[0]} ${dayEndAt}`).getTime();
+  }
+
   const day = [
+    //TODO костыли, найти решение
     {
-      title: "9:00",
+      start: calcDayStart(),
     },
     {
-      title: "9:30",
+      start: calcDayStart() + (1000 * 60 * 30),
     },
     {
-      title: "10:00",
+      start: calcDayStart() + (1000 * 60 * 30) * 2,
     },
     {
-      title: "10:30",
+      start: calcDayStart() + (1000 * 60 * 30) * 3,
     },
     {
-      title: "11:00",
+      start: calcDayStart() + (1000 * 60 * 30) * 4,
     },
     {
-      title: "11:30",
+      start: calcDayStart() + (1000 * 60 * 30) * 5,
     },
     {
-      title: "12:00",
+      start: calcDayStart() + (1000 * 60 * 30) * 6,
     },
     {
-      title: "12:30",
+      start: calcDayStart() + (1000 * 60 * 30) * 7,
     },
     {
-      title: "13:00",
+      start: calcDayStart() + (1000 * 60 * 30) * 8,
     },
     {
-      title: "13:30",
+      start: calcDayStart() + (1000 * 60 * 30) * 9,
     },
     {
-      title: "14:00",
+      start: calcDayStart() + (1000 * 60 * 30) * 10,
     },
     {
-      title: "14:30",
+      start: calcDayStart() + (1000 * 60 * 30) * 11,
     },
     {
-      title: "15:00",
+      start: calcDayStart() + (1000 * 60 * 30) * 12,
     },
     {
-      title: "15:30",
+      start: calcDayStart() + (1000 * 60 * 30) * 13,
     },
     {
-      title: "16:00",
+      start: calcDayStart() + (1000 * 60 * 30) * 14,
     },
     {
-      title: "16:30",
+      start: calcDayStart() + (1000 * 60 * 30) * 15,
     },
     {
-      title: "17:00",
+      start: calcDayStart() + (1000 * 60 * 30) * 16,
     },
     {
-      title: "17:30",
+      start: calcDayStart() + (1000 * 60 * 30) * 17,
     },
     {
-      title: "18:00",
+      start: calcDayStart() + (1000 * 60 * 30) * 18,
     },
     {
-      title: "18:30",
+      start: calcDayStart() + (1000 * 60 * 30) * 19,
     },
     // {
     //   title: "19:00",
@@ -128,22 +126,12 @@ export const CalendarDay = ({daySelected}) => { // В daySelected приходи
     // },
   ];
 
-  const calcDayStart = () => {
-    const date = new Date(daySelected).toLocaleDateString().split(".");
-    return new Date(`${date[2]}-${date[1]}-${date[0]} ${dayStartAt}`).getTime();
-  }
-
-  const calcDayEnd = (times) => {
-    const date = new Date(daySelected).toLocaleDateString().split(".");
-    return new Date(`${date[2]}-${date[1]}-${date[0]} ${dayEndAt}`).getTime();
-  }
-
   return (
     <div>
       <div className="calendar-wrp">
         {day.map((el) => (
           <div
-            key={el.title}
+            key={el.start}
             style={{
               width: "100%",
               height: "5%",
@@ -154,9 +142,9 @@ export const CalendarDay = ({daySelected}) => { // В daySelected приходи
               paddingLeft: "2px",
               cursor: "pointer",
             }}
-            onClick={handleModalOpen}
+            onClick={() => handleModalOpen(el)}
           >
-            {el.title}
+            {new Date(el.start).toLocaleTimeString([], {hour: "2-digit", minute: "2-digit"})}
           </div>
         ))}
         {vks?.map((el) => (
@@ -164,6 +152,7 @@ export const CalendarDay = ({daySelected}) => { // В daySelected приходи
             key={el.start}
             element={el}
             calcDayStart={calcDayStart(daySelected)}
+            handleModalOpen={() => handleModalOpen(el)}
           />
         ))}
       </div>
@@ -181,10 +170,9 @@ export const CalendarDay = ({daySelected}) => { // В daySelected приходи
         }}
       >
         <MyModal modalOpen={modalOpen} setModalOpen={setModalOpen}>
-          <VksConstructor calcDayStart={calcDayStart()} calcDayEnd={calcDayEnd()}/>
+          <VksConstructor calcDayStart={calcDayStart()} calcDayEnd={calcDayEnd()} currentEl={currentEl}/>
         </MyModal>
       </Box>
-
 
     </div>
   );

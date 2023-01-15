@@ -78,8 +78,10 @@ const calendarSlice = createSlice({
 
     editVks(state, action) {
       const date = new Date(action.payload.start);
+      // Удаление изменяемой ВКС
       state.calendar[date.getFullYear()][date.getMonth() + 1][date.getDate()] = state.calendar[date.getFullYear()][date.getMonth() + 1][date.getDate()].filter(el => el.id !== action.payload.id)
-      state.calendar[date.getFullYear()][date.getMonth() + 1][date.getDate()] = []
+      // Добавление измененной ВКС
+      state.calendar[date.getFullYear()][date.getMonth() + 1][date.getDate()] = state.calendar[date.getFullYear()][date.getMonth() + 1][date.getDate()].push(action.payload)
     }
   },
   extraReducers: {

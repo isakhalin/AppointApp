@@ -12,7 +12,7 @@ import {
 
 function App() {
   const [daySelected, setDaySelected] = useState(new Date().getTime());
-  console.log("Значение даты в Апп", daySelected)
+  // console.log("Значение даты в Апп", daySelected)
 
   return (
     <div className="App">

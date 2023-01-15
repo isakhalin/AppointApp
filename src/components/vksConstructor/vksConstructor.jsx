@@ -1,27 +1,33 @@
 import React, {useEffect, useState} from "react";
 //import dayjs from "dayjs";
-import Stack from "@mui/material/Stack";
-import TextField from "@mui/material/TextField";
-import {LocalizationProvider} from "@mui/x-date-pickers/LocalizationProvider";
-import {TimePicker} from "@mui/x-date-pickers/TimePicker";
+
 // import { DateTimePicker } from "@mui/x-date-pickers/DateTimePicker";
 import {DesktopDatePicker} from "@mui/x-date-pickers/DesktopDatePicker";
 // import { MobileDatePicker } from "@mui/x-date-pickers/MobileDatePicker";
 import {AdapterMoment} from "@mui/x-date-pickers/AdapterMoment";
 import moment from "moment/moment";
+
+// Import MUI Comps
+import Stack from "@mui/material/Stack";
+import TextField from "@mui/material/TextField";
+import {LocalizationProvider} from "@mui/x-date-pickers/LocalizationProvider";
+import {TimePicker} from "@mui/x-date-pickers/TimePicker";
 import Button from "@mui/material/Button";
+import Box from "@mui/material/Box";
 
 // Import Actions
 import {setVks} from "../../store/reducers/calendarSlice"
 import {useDispatch} from "react-redux";
 
-export const VksConstructor = ({calcDayStart, calcDayEnd}) => {
-  const [startValue, setStartValue] = useState(moment(calcDayStart));
-  const [endValue, setEndValue] = useState(moment(calcDayStart));
+export const VksConstructor = ({calcDayStart, calcDayEnd, currentEl}) => {
+  const [startValue, setStartValue] = useState(moment(currentEl.start));
+  const [endValue, setEndValue] = useState(moment(currentEl.end ? currentEl.end : currentEl.start));
+  const [title, setTitle] = useState(currentEl.title ? currentEl.title : "");
+  const [description, setDescription] = useState(currentEl.description ? currentEl.description : "");
   const dispatch = useDispatch();
-  // const handleChange = (newValue) => {
-  //   setValue(newValue);
-  // };
+
+  console.log("!!!startValue", startValue.format("YYYY-MM-DD HH:mm:ss"))
+
   const vksCreate = () => {
     const newVks = {
       id: Math.floor((Math.random() * 1000000000)),
@@ -30,13 +36,25 @@ export const VksConstructor = ({calcDayStart, calcDayEnd}) => {
       start: Number(startValue.format("x")), // 1671523200000
       end: Number(endValue.format("x")), // 1671526800000
     }
-    dispatch(setVks(newVks));
+    if (startValue.format("x") !== endValue.format("x")) {
+      dispatch(setVks(newVks));
+    } else {
+      console.log("Время начала ВКС не может совпадать с временем завершения")
+    }
+
   }
 
-  useEffect(() => {
-    setStartValue(moment(calcDayStart));
-    setEndValue(moment(calcDayStart));
-  }, [calcDayStart])
+  // useEffect(() => {
+  //   if (currentEl) {
+  //     const dayStartAt = moment(calcDayStart).format("YYYY-MM-DD");
+  //     const vksStartAt = moment(currentEl.start).format("YYYY-MM-DD HH:mm:ss");
+  //     console.log("CURRENT", currentEl)
+  //     console.log("!!dayStartAt!!", `${dayStartAt} ${vksStartAt}:00`)
+  //     // setStartValue(moment(`${dayStartAt} ${vksStartAt}:00`));
+  //     // setEndValue(moment(`${dayStartAt} ${vksStartAt}:00`));
+  //     setStartValue(moment())
+  //   }
+  // }, [currentEl])
 
   return (
     <LocalizationProvider dateAdapter={AdapterMoment}>
@@ -61,6 +79,31 @@ export const VksConstructor = ({calcDayStart, calcDayEnd}) => {
           minTime={startValue}
           // maxTime={moment('2023-01-10T00:00')}
         />
+        <Box
+          component="form"
+          sx={{
+            '& > :not(style)': {mb: 3, width: '100%'},
+          }}
+          noValidate
+          autoComplete="off"
+        >
+          <TextField
+            id="outlined-basic"
+            label="Заголовок"
+            variant="outlined"
+            value={title}
+            onChange={(e) => setTitle(e.target.value)}
+          />
+          <TextField
+            id="outlined-multiline-static"
+            label="Описание"
+            multiline
+            rows={4}
+            defaultValue=""
+            value={description}
+            onChange={(e) => setDescription(e.target.value)}
+          />
+        </Box>
         {/*<TimePicker*/}
         {/*  renderInput={(params) => <TextField {...params} />}*/}
         {/*  label="Завершение ВКС"*/}
