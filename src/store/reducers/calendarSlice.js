@@ -23,7 +23,7 @@ const initialState = {
             },
           },
           {
-            id: "43467345361",
+            id: "43437575361",
             title: "Вопросы общего образования образования образования образования образования образования",
             description: "",
             start: 1675207800000, // new Date("2023-02-01 10:30:00").getTime()
@@ -77,11 +77,12 @@ const calendarSlice = createSlice({
     },
 
     editVks(state, action) {
+      console.log("action.payload", action.payload)
       const date = new Date(action.payload.start);
       // Удаление изменяемой ВКС
       state.calendar[date.getFullYear()][date.getMonth() + 1][date.getDate()] = state.calendar[date.getFullYear()][date.getMonth() + 1][date.getDate()].filter(el => el.id !== action.payload.id)
       // Добавление измененной ВКС
-      state.calendar[date.getFullYear()][date.getMonth() + 1][date.getDate()] = state.calendar[date.getFullYear()][date.getMonth() + 1][date.getDate()].push(action.payload)
+      state.calendar[date.getFullYear()][date.getMonth() + 1][date.getDate()].push(action.payload)
     }
   },
   extraReducers: {
@@ -125,4 +126,4 @@ const calendarSlice = createSlice({
 })
 
 export const calendarReducer = calendarSlice.reducer;
-export const {setVks, deleteVks} = calendarSlice.actions;
+export const {setVks, deleteVks, editVks} = calendarSlice.actions;

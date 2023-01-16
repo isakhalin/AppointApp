@@ -16,7 +16,7 @@ import Button from "@mui/material/Button";
 import Box from "@mui/material/Box";
 
 // Import Actions
-import {setVks} from "../../store/reducers/calendarSlice"
+import {setVks, editVks} from "../../store/reducers/calendarSlice"
 import {useDispatch} from "react-redux";
 
 export const VksConstructor = ({calcDayStart, calcDayEnd, currentEl}) => {
@@ -26,18 +26,23 @@ export const VksConstructor = ({calcDayStart, calcDayEnd, currentEl}) => {
   const [description, setDescription] = useState(currentEl.description ? currentEl.description : "");
   const dispatch = useDispatch();
 
-  console.log("!!!startValue", startValue.format("YYYY-MM-DD HH:mm:ss"))
+  // console.log("!!!startValue", startValue.format("YYYY-MM-DD HH:mm:ss"))
 
   const vksCreate = () => {
     const newVks = {
-      id: Math.floor((Math.random() * 1000000000)),
-      title: "Вопросы общего образования!",
-      description: "",
+      id: currentEl.id ? currentEl.id : Math.floor((Math.random() * 1000000000)),
+      title: title,
+      description: description,
       start: Number(startValue.format("x")), // 1671523200000
       end: Number(endValue.format("x")), // 1671526800000
     }
     if (startValue.format("x") !== endValue.format("x")) {
-      dispatch(setVks(newVks));
+      if(!currentEl.id){
+        dispatch(setVks(newVks));
+      } else {
+        dispatch(editVks(newVks));
+      }
+
     } else {
       console.log("Время начала ВКС не может совпадать с временем завершения")
     }
