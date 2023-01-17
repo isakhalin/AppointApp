@@ -10,6 +10,9 @@ import {useSelector} from "react-redux";
 import Button from "@mui/material/Button";
 import Box from "@mui/material/Box";
 
+// Import styles
+import classes from './calendarDay.module.css';
+
 // Import custom comps
 import {VksConstructor} from "../vksConstructor";
 import {VksElement} from "./vksElement";
@@ -154,6 +157,7 @@ export const CalendarDay = ({daySelected}) => { // В daySelected приходи
               {new Date(el.start).toLocaleTimeString([], {hour: "2-digit", minute: "2-digit"})}
             </div>
             <div
+              className={classes.shadow}
               style={{
                 width: "93%",
                 cursor: "pointer",

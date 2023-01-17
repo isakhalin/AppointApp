@@ -5,7 +5,7 @@ import DeleteOutlinedIcon from '@mui/icons-material/DeleteOutlined';
 import EditOutlinedIcon from '@mui/icons-material/EditOutlined';
 import {useDispatch} from "react-redux";
 
-import {deleteVks} from "../../../store/reducers/calendarSlice"
+import {deleteVks} from "../../../store/reducers/calendarSlice";
 
 const percentPerMinute = 0.166666667;
 
