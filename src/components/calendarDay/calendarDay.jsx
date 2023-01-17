@@ -133,18 +133,34 @@ export const CalendarDay = ({daySelected}) => { // В daySelected приходи
           <div
             key={el.start}
             style={{
+              display: "flex",
               width: "100%",
               height: "5%",
               borderBottom: "1px solid black",
               boxSizing: "border-box",
               fontSize: "9px",
               textAlign: "left",
-              paddingLeft: "2px",
-              cursor: "pointer",
+              // paddingLeft: "2px",
+
             }}
-            onClick={() => handleModalOpen(el)}
+
           >
-            {new Date(el.start).toLocaleTimeString([], {hour: "2-digit", minute: "2-digit"})}
+            <div
+              style={{
+                width: "7%",
+                paddingLeft: "2px",
+              }}
+            >
+              {new Date(el.start).toLocaleTimeString([], {hour: "2-digit", minute: "2-digit"})}
+            </div>
+            <div
+              style={{
+                width: "93%",
+                cursor: "pointer",
+              }}
+              onClick={() => handleModalOpen(el)}
+            >
+            </div>
           </div>
         ))}
         {vks?.map((el) => (
