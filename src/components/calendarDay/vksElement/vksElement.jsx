@@ -13,7 +13,7 @@ const StyledDiv = styled.div`
   position: absolute;
   right: 0;
   top: ${({element, calcDayStart}) => ((element.start - calcDayStart) / 60000) * percentPerMinute}%; // 30 минут это 30 пикселей. (start-dayStartAt)/60000
-  background-color: #ed8550;
+  background-color: #ed8550f5;
   height: ${({element}) => ((element.end - element.start) / 60000) * percentPerMinute}%; // (end-start)/60000
   width: 92.5%;
   border-bottom: 1px solid black;
@@ -38,6 +38,7 @@ export const VksElement = ({element, calcDayStart, handleModalOpen}) => {
         style={{
           display: "block",
           height: "100%",
+          width: "100%",
           fontSize: "12px",
           lineHeight: "13px",
           textAlign: "left",
@@ -47,9 +48,9 @@ export const VksElement = ({element, calcDayStart, handleModalOpen}) => {
       >
         {element.title}
       </span>
-        <div>
+        <div style={{width: "36px"}}>
           <EditOutlinedIcon
-            sx={{fontSize: 15, color: "#e7e7e7", cursor: "pointer",}}
+            sx={{fontSize: 16, color: "#e7e7e7", cursor: "pointer",}}
             onClick={() => handleEditVks(element)}
           />
           <DeleteOutlinedIcon
