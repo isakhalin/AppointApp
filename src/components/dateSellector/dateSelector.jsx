@@ -15,7 +15,7 @@ export const DateSelector = ({daySelected, setDaySelected}) => {
   };
 
   return (
-    <div>
+    <div style={{paddingBottom: "5px"}}>
       <LocalizationProvider dateAdapter={AdapterMoment}>
         <Stack spacing={3}>
           <DesktopDatePicker
