@@ -9,6 +9,7 @@ import {
   DateSelector,
   VksConstructor,
 } from "./components";
+import {CalendarMonth} from "./components/calendarMonth";
 
 function App() {
   const [daySelected, setDaySelected] = useState(new Date().getTime());
@@ -20,6 +21,7 @@ function App() {
         <DateSelector daySelected={daySelected} setDaySelected={setDaySelected}/>
         <CalendarDay daySelected={daySelected}/>
       </div>
+      <CalendarMonth/>
     </div>
   );
 }
