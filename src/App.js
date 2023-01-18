@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-
+import {Route, RouterProvider, createBrowserRouter} from 'react-router-dom';
 // Import styles
 import './App.css';
 
@@ -11,17 +11,32 @@ import {
 } from "./components";
 import {CalendarMonth} from "./components/calendarMonth";
 
+
+
 function App() {
   const [daySelected, setDaySelected] = useState(new Date().getTime());
   // console.log("Значение даты в Апп", daySelected)
-
-  return (
-    <div className="App">
-      <div className="content-wpr">
+  const router = createBrowserRouter([
+    {
+      path: "/",
+      element: <CalendarMonth/>,
+    },
+    {
+      path: '/:time',
+      element:       <div className="content-wpr">
         <DateSelector daySelected={daySelected} setDaySelected={setDaySelected}/>
         <CalendarDay daySelected={daySelected}/>
       </div>
-      <CalendarMonth/>
+    },
+  ]);
+  return (
+    <div className="App">
+      {/*<div className="content-wpr">*/}
+      {/*  <DateSelector daySelected={daySelected} setDaySelected={setDaySelected}/>*/}
+      {/*  <CalendarDay daySelected={daySelected}/>*/}
+      {/*</div>*/}
+      {/*<CalendarMonth/>*/}
+      <RouterProvider router={router} />
     </div>
   );
 }

@@ -5,6 +5,7 @@ import Grid from "@mui/material/Grid";
 import {useSelector} from "react-redux";
 import {experimentalStyled as styled} from "@mui/material/styles";
 import Paper from "@mui/material/Paper";
+import { useNavigate } from "react-router-dom";
 
 const Item = styled(Paper)(({theme}) => ({
   backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
@@ -16,10 +17,11 @@ const Item = styled(Paper)(({theme}) => ({
 
 export const MonthItem = ({dayElement}) => {
   const {calendar} = useSelector((state) => state.calendarReducer);
+  const navigate = useNavigate();
   return (
     <>
       <Grid item xs={2.33} sm={1.6} md={1}>
-        <Item>
+        <Item onClick={()=>navigate(`/${dayElement.format('x')}`)}>
           <Typography
             variant="subtitle1"
             color="text.secondary"
