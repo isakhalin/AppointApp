@@ -21,7 +21,7 @@ export const MonthItem = ({dayElement}) => {
   return (
     <>
       <Grid item xs={2.33} sm={1.6} md={1}>
-        <Item onClick={()=>navigate(`/${dayElement.format('x')}`)}>
+        <Item onClick={()=>navigate(`/${dayElement.year()}/${dayElement.month() + 1}/${dayElement.date()}`)}>
           <Typography
             variant="subtitle1"
             color="text.secondary"

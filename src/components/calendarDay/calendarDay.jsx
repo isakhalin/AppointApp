@@ -2,7 +2,7 @@
 // clg  - console.log()
 
 import React, {useEffect, useState} from "react";
-
+import moment from "moment";
 // React ToolKit
 import {useSelector} from "react-redux";
 
@@ -10,10 +10,14 @@ import {useSelector} from "react-redux";
 import Button from "@mui/material/Button";
 import Box from "@mui/material/Box";
 
+// Import styles
+import classes from './calendarDay.module.css';
+
 // Import custom comps
 import {VksConstructor} from "../vksConstructor";
 import {VksElement} from "./vksElement";
 import {MyModal} from "../modals";
+import {useNavigate, useParams} from "react-router-dom";
 
 export const CalendarDay = ({daySelected}) => { // В daySelected приходит дата в милисекундах
   const [dayStartAt, setDayStartAt] = useState("09:00:00");
@@ -23,6 +27,9 @@ export const CalendarDay = ({daySelected}) => { // В daySelected приходи
 
   const {calendar} = useSelector((state) => state.calendarReducer);
 
+  const navigate = useNavigate();
+  const params = useParams();
+
   const handleModalOpen = (el) => {
     console.log("EL", el);
     //setDayStartAt(`${el}:00`);
@@ -30,27 +37,45 @@ export const CalendarDay = ({daySelected}) => { // В daySelected приходи
     setModalOpen(true);
   }
 
-  const date = new Date(daySelected);
-
-  const vks = calendar[date.getFullYear()]?.[date.getMonth() + 1]?.[date.getDate()];
-
+  // const date = new Date(daySelected);
+  // console.log('date',date)
+  //
+  // const vks = calendar[date.getFullYear()]?.[date.getMonth() + 1]?.[date.getDate()];
+  //
+  // const calcDayStart = () => {
+  //   const date = new Date(daySelected).toLocaleDateString().split(".");
+  //   return new Date(`${date[2]}-${date[1]}-${date[0]} ${dayStartAt}`).getTime();
+  // }
+  //
+  // const calcDayEnd = () => {
+  //   const date = new Date(daySelected).toLocaleDateString().split(".");
+  //   return new Date(`${date[2]}-${date[1]}-${date[0]} ${dayEndAt}`).getTime();
+  // }
+  const date = moment(`${params.year}.${params.month}.${params.day}`);
+  console.log('date',date, 'daySelected', daySelected);
+  console.log('!!!!', moment(`${params.year}.${params.month}.${params.day} ${dayStartAt}`).format('x'))
+  const vks = calendar[date.year()]?.[date.month()+1]?.[date.date()];
+  console.log(vks)
   const calcDayStart = () => {
-    const date = new Date(daySelected).toLocaleDateString().split(".");
-    return new Date(`${date[2]}-${date[1]}-${date[0]} ${dayStartAt}`).getTime();
+    // const date = new Date(daySelected).toLocaleDateString().split(".");
+    // return new Date(`${date[2]}-${date[1]}-${date[0]} ${dayStartAt}`).getTime();
+    return moment(`${params.year}.${params.month}.${params.day} ${dayStartAt}`).format('x')
   }
 
   const calcDayEnd = () => {
-    const date = new Date(daySelected).toLocaleDateString().split(".");
-    return new Date(`${date[2]}-${date[1]}-${date[0]} ${dayEndAt}`).getTime();
+    // const date = new Date(daySelected).toLocaleDateString().split(".");
+    // return new Date(`${date[2]}-${date[1]}-${date[0]} ${dayEndAt}`).getTime();
+    return moment(`${params.year}.${params.month}.${params.day} ${dayEndAt}`).format('x')
+
   }
 
   const day = [
     //TODO костыли, найти решение
     {
-      start: calcDayStart(),
+      start: +calcDayStart(),
     },
     {
-      start: calcDayStart() + (1000 * 60 * 30),
+      start: +calcDayStart() + (1000 * 60 * 30),
     },
     {
       start: calcDayStart() + (1000 * 60 * 30) * 2,
@@ -126,6 +151,7 @@ export const CalendarDay = ({daySelected}) => { // В daySelected приходи
     // },
   ];
 
+  console.log('day', day)
   return (
     <div>
       <div className="calendar-wrp">
@@ -154,6 +180,7 @@ export const CalendarDay = ({daySelected}) => { // В daySelected приходи
               {new Date(el.start).toLocaleTimeString([], {hour: "2-digit", minute: "2-digit"})}
             </div>
             <div
+              className={classes.shadow}
               style={{
                 width: "93%",
                 cursor: "pointer",
@@ -189,7 +216,7 @@ export const CalendarDay = ({daySelected}) => { // В daySelected приходи
           <VksConstructor calcDayStart={calcDayStart()} calcDayEnd={calcDayEnd()} currentEl={currentEl}/>
         </MyModal>
       </Box>
-
+      <Button onClick={()=>navigate(`/${params.year}/${params.month}`)}>В календарь</Button>
     </div>
   );
 };

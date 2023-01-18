@@ -22,8 +22,12 @@ function App() {
       element: <CalendarMonth/>,
     },
     {
-      path: '/:time',
-      element:       <div className="content-wpr">
+      path: '/:year/:month',
+      element: <CalendarMonth/>,
+    },
+    {
+      path: '/:year/:month/:day',
+      element:<div className="content-wpr">
         <DateSelector daySelected={daySelected} setDaySelected={setDaySelected}/>
         <CalendarDay daySelected={daySelected}/>
       </div>

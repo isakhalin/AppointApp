@@ -9,18 +9,23 @@ import NavigateNextIcon from '@mui/icons-material/NavigateNext';
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import {MonthItem} from "./monthItem";
+import {useNavigate, useParams} from "react-router-dom";
 
 
 
 export const CalendarMonth = () => {
   moment.locale('ru');
-
+  const params = useParams();
+  const navigate = useNavigate()
+  console.log('params', params, moment(`${params.year}.${params.month}`).format('YYYY.MM.DD'))
+  // console.log('test', moment(`${params.year}.${params.month}`).format('YYYY.MM.DD'))
+  console.log('property', params.hasOwnProperty('year'))
   // const {calendar} = useSelector((state) => state.calendarReducer);
-  const [date, setDate] = useState(moment(new Date()));
+  const [date, setDate] = useState(params.hasOwnProperty('year') ? moment(`${params.year}.${params.month}`) : moment(new Date()));
   // console.log('calendar', calendar)
   // console.log('length', calendar?.[2023]?.[1]?.[14].length)
   // const date = moment(new Date());
-  console.log('date', date);
+  console.log('date', date.format('YYYY.MM.DD'), date.month());
   const daysInMonth = date.daysInMonth();
   const year = date.year()
   console.log('year',year);
@@ -32,16 +37,26 @@ export const CalendarMonth = () => {
   console.log('daysInMonth',daysInMonth);
 
   const nextMonth = () => {
+
     setDate((prevState)=> {
       // console.log('prevState next',prevState)
-      return moment(new Date(prevState.year(), prevState.month() + 1));
+      // navigate(`/${prevState.year()}/${(prevState.month() + 1).format('M')}`)
+      const nextMonth = moment(new Date(prevState.year(), prevState.month() + 1));
+      navigate(`/${nextMonth.year()}/${(nextMonth.format('M'))}`)
+      return nextMonth
+      // return moment(new Date(prevState.year(), prevState.month() + 1));
+
       // console.log('nextMonth',new Date(prevState.year(), prevState.month() + 1))
     })
   }
   const prevMonth = () => {
     setDate((prevState)=> {
-      // console.log('prevState prev',prevState)
-      return moment(new Date(prevState.year(), prevState.month() - 1));
+      console.log('prevState prev',prevState.month() - 1)
+      // navigate(`/${prevState.year()}/${(prevState.month() - 1).format('M')}`)
+      const prevMonth = moment(new Date(prevState.year(), prevState.month() - 1));
+      navigate(`/${prevMonth.year()}/${(prevMonth.format('M'))}`)
+      return prevMonth
+      // return moment(new Date(prevState.year(), prevState.month() - 1));
       // console.log('prevMonth',new Date(prevState.year(), prevState.month() - 1))
     })
   }
