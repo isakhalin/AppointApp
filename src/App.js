@@ -17,6 +17,7 @@ function App() {
   return (
     <div className="App">
       <div className="content-wpr">
+        <div style={{marginBottom: "5px"}}>Kunilingoosee App</div>
         <DateSelector daySelected={daySelected} setDaySelected={setDaySelected}/>
         <CalendarDay daySelected={daySelected}/>
       </div>
