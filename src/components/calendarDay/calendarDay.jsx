@@ -22,7 +22,8 @@ import {useNavigate, useParams} from "react-router-dom";
 // export const CalendarDay = ({daySelected}) => { // В daySelected приходит дата в милисекундах
 export const CalendarDay = () => {
   const [dayStartAt, setDayStartAt] = useState("09:00:00");
-  const [dayEndAt, setDayEndAt] = useState("21:00:00");
+  // const [dayEndAt, setDayEndAt] = useState("21:00:00");
+  const [dayEndAt, setDayEndAt] = useState("19:00:00");
   const [modalOpen, setModalOpen] = useState(false);
   const [currentEl, setCurrentEl] = useState({title: ``})
 
@@ -70,90 +71,105 @@ export const CalendarDay = () => {
 
   }
 
-  const day = [
-    //TODO костыли, найти решение
-    {
-      start: calcDayStart(),
-    },
-    {
-      start: calcDayStart() + (1000 * 60 * 30),
-    },
-    {
-      start: calcDayStart() + (1000 * 60 * 30) * 2,
-    },
-    {
-      start: calcDayStart() + (1000 * 60 * 30) * 3,
-    },
-    {
-      start: calcDayStart() + (1000 * 60 * 30) * 4,
-    },
-    {
-      start: calcDayStart() + (1000 * 60 * 30) * 5,
-    },
-    {
-      start: calcDayStart() + (1000 * 60 * 30) * 6,
-    },
-    {
-      start: calcDayStart() + (1000 * 60 * 30) * 7,
-    },
-    {
-      start: calcDayStart() + (1000 * 60 * 30) * 8,
-    },
-    {
-      start: calcDayStart() + (1000 * 60 * 30) * 9,
-    },
-    {
-      start: calcDayStart() + (1000 * 60 * 30) * 10,
-    },
-    {
-      start: calcDayStart() + (1000 * 60 * 30) * 11,
-    },
-    {
-      start: calcDayStart() + (1000 * 60 * 30) * 12,
-    },
-    {
-      start: calcDayStart() + (1000 * 60 * 30) * 13,
-    },
-    {
-      start: calcDayStart() + (1000 * 60 * 30) * 14,
-    },
-    {
-      start: calcDayStart() + (1000 * 60 * 30) * 15,
-    },
-    {
-      start: calcDayStart() + (1000 * 60 * 30) * 16,
-    },
-    {
-      start: calcDayStart() + (1000 * 60 * 30) * 17,
-    },
-    {
-      start: calcDayStart() + (1000 * 60 * 30) * 18,
-    },
-    {
-      start: calcDayStart() + (1000 * 60 * 30) * 19,
-    },
-    // {
-    //   title: "19:00",
-    // },
-    // {
-    //   title: "19:30",
-    // },
-    // {
-    //   title: "20:00",
-    // },
-    // {
-    //   title: "20:30",
-    // },
-    // {
-    //   title: "21:00",
-    // },
-    // {
-    //   title: "21:30",
-    // },
-  ];
+  // const day = [
+  //   //TODO костыли, найти решение
+  //   {
+  //     start: calcDayStart(),
+  //   },
+  //   {
+  //     start: calcDayStart() + (1000 * 60 * 30),
+  //   },
+  //   {
+  //     start: calcDayStart() + (1000 * 60 * 30) * 2,
+  //   },
+  //   {
+  //     start: calcDayStart() + (1000 * 60 * 30) * 3,
+  //   },
+  //   {
+  //     start: calcDayStart() + (1000 * 60 * 30) * 4,
+  //   },
+  //   {
+  //     start: calcDayStart() + (1000 * 60 * 30) * 5,
+  //   },
+  //   {
+  //     start: calcDayStart() + (1000 * 60 * 30) * 6,
+  //   },
+  //   {
+  //     start: calcDayStart() + (1000 * 60 * 30) * 7,
+  //   },
+  //   {
+  //     start: calcDayStart() + (1000 * 60 * 30) * 8,
+  //   },
+  //   {
+  //     start: calcDayStart() + (1000 * 60 * 30) * 9,
+  //   },
+  //   {
+  //     start: calcDayStart() + (1000 * 60 * 30) * 10,
+  //   },
+  //   {
+  //     start: calcDayStart() + (1000 * 60 * 30) * 11,
+  //   },
+  //   {
+  //     start: calcDayStart() + (1000 * 60 * 30) * 12,
+  //   },
+  //   {
+  //     start: calcDayStart() + (1000 * 60 * 30) * 13,
+  //   },
+  //   {
+  //     start: calcDayStart() + (1000 * 60 * 30) * 14,
+  //   },
+  //   {
+  //     start: calcDayStart() + (1000 * 60 * 30) * 15,
+  //   },
+  //   {
+  //     start: calcDayStart() + (1000 * 60 * 30) * 16,
+  //   },
+  //   {
+  //     start: calcDayStart() + (1000 * 60 * 30) * 17,
+  //   },
+  //   {
+  //     start: calcDayStart() + (1000 * 60 * 30) * 18,
+  //   },
+  //   {
+  //     start: calcDayStart() + (1000 * 60 * 30) * 19,
+  //   },
+  //   // {
+  //   //   title: "19:00",
+  //   // },
+  //   // {
+  //   //   title: "19:30",
+  //   // },
+  //   // {
+  //   //   title: "20:00",
+  //   // },
+  //   // {
+  //   //   title: "20:30",
+  //   // },
+  //   // {
+  //   //   title: "21:00",
+  //   // },
+  //   // {
+  //   //   title: "21:30",
+  //   // },
+  // ];
 
   //Вариант 1 для заполнения дня
-  // const getDayArr = () => {};
+  /**
+   *
+   * @param startDay {Number} старт счетчика
+   * @param endDay {Number} конец счетчика
+   * @param interval {Number} интервал на который увеличивается счетчик
+   * @returns {*[]} Возвращает массив
+   */
+  const getDayArr = (startDay, endDay, interval) => {
+    let tempArr = [];
+    for (let i = startDay; i < endDay; i += interval) {
+      tempArr.push({start: i})
+    }
+    return tempArr
+  };
+  const day = getDayArr(calcDayStart(), calcDayEnd(), 1000 * 60 * 30)
+  // console.log('day1: ', day1 )
 
   // Вариант 2 для заполнения дня
   // const dayStartAtForDayLength = calcDayStart();
