@@ -37,45 +37,45 @@ export const CalendarDay = ({daySelected}) => { // В daySelected приходи
     setModalOpen(true);
   }
 
-  // const date = new Date(daySelected);
-  // console.log('date',date)
-  //
-  // const vks = calendar[date.getFullYear()]?.[date.getMonth() + 1]?.[date.getDate()];
-  //
-  // const calcDayStart = () => {
-  //   const date = new Date(daySelected).toLocaleDateString().split(".");
-  //   return new Date(`${date[2]}-${date[1]}-${date[0]} ${dayStartAt}`).getTime();
-  // }
-  //
-  // const calcDayEnd = () => {
-  //   const date = new Date(daySelected).toLocaleDateString().split(".");
-  //   return new Date(`${date[2]}-${date[1]}-${date[0]} ${dayEndAt}`).getTime();
-  // }
-  const date = moment(`${params.year}.${params.month}.${params.day}`);
-  console.log('date',date, 'daySelected', daySelected);
-  console.log('!!!!', moment(`${params.year}.${params.month}.${params.day} ${dayStartAt}`).format('x'))
-  const vks = calendar[date.year()]?.[date.month()+1]?.[date.date()];
-  console.log(vks)
+  const date = new Date(daySelected);
+  console.log('date',date)
+
+  const vks = calendar[date.getFullYear()]?.[date.getMonth() + 1]?.[date.getDate()];
+
   const calcDayStart = () => {
-    // const date = new Date(daySelected).toLocaleDateString().split(".");
-    // return new Date(`${date[2]}-${date[1]}-${date[0]} ${dayStartAt}`).getTime();
-    return moment(`${params.year}.${params.month}.${params.day} ${dayStartAt}`).format('x')
+    const date = new Date(daySelected).toLocaleDateString().split(".");
+    return new Date(`${date[2]}-${date[1]}-${date[0]} ${dayStartAt}`).getTime();
   }
 
   const calcDayEnd = () => {
-    // const date = new Date(daySelected).toLocaleDateString().split(".");
-    // return new Date(`${date[2]}-${date[1]}-${date[0]} ${dayEndAt}`).getTime();
-    return moment(`${params.year}.${params.month}.${params.day} ${dayEndAt}`).format('x')
-
+    const date = new Date(daySelected).toLocaleDateString().split(".");
+    return new Date(`${date[2]}-${date[1]}-${date[0]} ${dayEndAt}`).getTime();
   }
+  // const date = moment(`${params.year}.${params.month}.${params.day}`);
+  // console.log('date',date, 'daySelected', daySelected);
+  // console.log('!!!!', moment(`${params.year}.${params.month}.${params.day} ${dayStartAt}`).format('x'))
+  // const vks = calendar[date.year()]?.[date.month()+1]?.[date.date()];
+  // console.log(vks)
+  // const calcDayStart = () => {
+  //   // const date = new Date(daySelected).toLocaleDateString().split(".");
+  //   // return new Date(`${date[2]}-${date[1]}-${date[0]} ${dayStartAt}`).getTime();
+  //   return moment(`${params.year}.${params.month}.${params.day} ${dayStartAt}`).format('x')
+  // }
+  //
+  // const calcDayEnd = () => {
+  //   // const date = new Date(daySelected).toLocaleDateString().split(".");
+  //   // return new Date(`${date[2]}-${date[1]}-${date[0]} ${dayEndAt}`).getTime();
+  //   return moment(`${params.year}.${params.month}.${params.day} ${dayEndAt}`).format('x')
+  //
+  // }
 
   const day = [
     //TODO костыли, найти решение
     {
-      start: +calcDayStart(),
+      start: calcDayStart(),
     },
     {
-      start: +calcDayStart() + (1000 * 60 * 30),
+      start: calcDayStart() + (1000 * 60 * 30),
     },
     {
       start: calcDayStart() + (1000 * 60 * 30) * 2,
@@ -151,7 +151,7 @@ export const CalendarDay = ({daySelected}) => { // В daySelected приходи
     // },
   ];
 
-  console.log('day', day)
+  // console.log('day', day)
   return (
     <div>
       <div className="calendar-wrp">
