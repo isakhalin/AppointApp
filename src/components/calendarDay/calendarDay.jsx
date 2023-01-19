@@ -19,7 +19,8 @@ import {VksElement} from "./vksElement";
 import {MyModal} from "../modals";
 import {useNavigate, useParams} from "react-router-dom";
 
-export const CalendarDay = ({daySelected}) => { // В daySelected приходит дата в милисекундах
+// export const CalendarDay = ({daySelected}) => { // В daySelected приходит дата в милисекундах
+export const CalendarDay = () => {
   const [dayStartAt, setDayStartAt] = useState("09:00:00");
   const [dayEndAt, setDayEndAt] = useState("21:00:00");
   const [modalOpen, setModalOpen] = useState(false);
@@ -37,37 +38,37 @@ export const CalendarDay = ({daySelected}) => { // В daySelected приходи
     setModalOpen(true);
   }
 
-  const date = new Date(daySelected);
-  console.log('date',date)
-
-  const vks = calendar[date.getFullYear()]?.[date.getMonth() + 1]?.[date.getDate()];
-
-  const calcDayStart = () => {
-    const date = new Date(daySelected).toLocaleDateString().split(".");
-    return new Date(`${date[2]}-${date[1]}-${date[0]} ${dayStartAt}`).getTime();
-  }
-
-  const calcDayEnd = () => {
-    const date = new Date(daySelected).toLocaleDateString().split(".");
-    return new Date(`${date[2]}-${date[1]}-${date[0]} ${dayEndAt}`).getTime();
-  }
-  // const date = moment(`${params.year}.${params.month}.${params.day}`);
-  // console.log('date',date, 'daySelected', daySelected);
-  // console.log('!!!!', moment(`${params.year}.${params.month}.${params.day} ${dayStartAt}`).format('x'))
-  // const vks = calendar[date.year()]?.[date.month()+1]?.[date.date()];
-  // console.log(vks)
+  // const date = new Date(daySelected);
+  // console.log('date',date)
+  //
+  // const vks = calendar[date.getFullYear()]?.[date.getMonth() + 1]?.[date.getDate()];
+  //
   // const calcDayStart = () => {
-  //   // const date = new Date(daySelected).toLocaleDateString().split(".");
-  //   // return new Date(`${date[2]}-${date[1]}-${date[0]} ${dayStartAt}`).getTime();
-  //   return moment(`${params.year}.${params.month}.${params.day} ${dayStartAt}`).format('x')
+  //   const date = new Date(daySelected).toLocaleDateString().split(".");
+  //   return new Date(`${date[2]}-${date[1]}-${date[0]} ${dayStartAt}`).getTime();
   // }
   //
   // const calcDayEnd = () => {
-  //   // const date = new Date(daySelected).toLocaleDateString().split(".");
-  //   // return new Date(`${date[2]}-${date[1]}-${date[0]} ${dayEndAt}`).getTime();
-  //   return moment(`${params.year}.${params.month}.${params.day} ${dayEndAt}`).format('x')
-  //
+  //   const date = new Date(daySelected).toLocaleDateString().split(".");
+  //   return new Date(`${date[2]}-${date[1]}-${date[0]} ${dayEndAt}`).getTime();
   // }
+  const date = moment(`${params.year}.${params.month}.${params.day}`);
+  // console.log('date',date, 'daySelected', daySelected);
+  console.log('!!!!', moment(`${params.year}.${params.month}.${params.day} ${dayStartAt}`).format('x'))
+  const vks = calendar[date.year()]?.[date.month()+1]?.[date.date()];
+  console.log(vks)
+  const calcDayStart = () => {
+    // const date = new Date(daySelected).toLocaleDateString().split(".");
+    // return new Date(`${date[2]}-${date[1]}-${date[0]} ${dayStartAt}`).getTime();
+    return +moment(`${params.year}.${params.month}.${params.day} ${dayStartAt}`).format('x')
+  }
+
+  const calcDayEnd = () => {
+    // const date = new Date(daySelected).toLocaleDateString().split(".");
+    // return new Date(`${date[2]}-${date[1]}-${date[0]} ${dayEndAt}`).getTime();
+    return +moment(`${params.year}.${params.month}.${params.day} ${dayEndAt}`).format('x')
+
+  }
 
   const day = [
     //TODO костыли, найти решение
@@ -151,7 +152,22 @@ export const CalendarDay = ({daySelected}) => { // В daySelected приходи
     // },
   ];
 
-  // console.log('day', day)
+  //Вариант 1 для заполнения дня
+  // const getDayArr = () => {};
+
+  // Вариант 2 для заполнения дня
+  // const dayStartAtForDayLength = calcDayStart();
+  // const dayStartEndForDayLength = calcDayEnd();
+  //
+  // const dayLength = (dayStartEndForDayLength - dayStartAtForDayLength) / 1000 / 60 / 30;
+  //
+  // const day1 = Array.from({ length: dayLength }, (_,idx) => {
+  //    return {
+  //      start: calcDayStart() + (1000 * 60 * 30) * idx ,
+  //    }
+  // });
+  // console.log('day1', day1)
+
   return (
     <div>
       <div className="calendar-wrp">
@@ -194,7 +210,8 @@ export const CalendarDay = ({daySelected}) => { // В daySelected приходи
           <VksElement
             key={el.start}
             element={el}
-            calcDayStart={calcDayStart(daySelected)}
+            // calcDayStart={calcDayStart(daySelected)}
+            calcDayStart={calcDayStart()}
             handleModalOpen={() => handleModalOpen(el)}
           />
         ))}

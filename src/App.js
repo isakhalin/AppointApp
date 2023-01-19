@@ -16,6 +16,7 @@ import {CalendarMonth} from "./components/calendarMonth";
 function App() {
   const [daySelected, setDaySelected] = useState(new Date().getTime());
   // console.log("Значение даты в Апп", daySelected)
+
   const router = createBrowserRouter([
     {
       path: "/",
@@ -28,8 +29,11 @@ function App() {
     {
       path: '/:year/:month/:day',
       element:<div className="content-wpr">
-        <DateSelector daySelected={daySelected} setDaySelected={setDaySelected}/>
-        <CalendarDay daySelected={daySelected}/>
+        {/*<div style={{marginBottom: "5px"}}>Kunilingoosee App</div>*/}
+        {/*<DateSelector daySelected={daySelected} setDaySelected={setDaySelected}/>*/}
+        {/*<CalendarDay daySelected={daySelected}/>*/}
+        <DateSelector />
+        <CalendarDay />
       </div>
     },
   ]);
@@ -40,6 +44,7 @@ function App() {
       {/*  <CalendarDay daySelected={daySelected}/>*/}
       {/*</div>*/}
       {/*<CalendarMonth/>*/}
+      <div style={{marginBottom: "5px"}}>Kunilingoosee App</div>
       <RouterProvider router={router} />
     </div>
   );
