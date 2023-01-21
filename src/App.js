@@ -9,8 +9,7 @@ import {CalendarMonth} from "./components/calendarMonth";
 
 
 function App() {
-  const [daySelected, setDaySelected] = useState(new Date().getTime());
-  // console.log("Значение даты в Апп", daySelected)
+  // const [daySelected, setDaySelected] = useState(new Date().getTime());
 
   const routes = [
     {

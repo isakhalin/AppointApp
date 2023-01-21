@@ -10,14 +10,8 @@ import {useNavigate, useParams} from "react-router-dom";
 
 // export const DateSelector = ({daySelected, setDaySelected}) => {
 export const DateSelector = () => {
-  // const [value, setValue] = useState(moment(daySelected));
   const params = useParams();
   const navigate = useNavigate();
-  // console.log('00000',daySelected)
-  console.log('params', params)
-  console.log('111111', moment(`${params.year}.${params.month}.${params.day}`).format('x'))
-  console.log('222222', moment(`${params.year}.${params.month}.${params.day}`).format('YYYY.MM.DD'))
-
 
   const handleChange = (newValue) => {
     // setDaySelected(Number(newValue.format("x")));

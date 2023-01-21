@@ -54,10 +54,7 @@ export const CalendarDay = () => {
   //   return new Date(`${date[2]}-${date[1]}-${date[0]} ${dayEndAt}`).getTime();
   // }
   const date = moment(`${params.year}.${params.month}.${params.day}`);
-  // console.log('date',date, 'daySelected', daySelected);
-  console.log('!!!!', moment(`${params.year}.${params.month}.${params.day} ${dayStartAt}`).format('x'))
   const vks = calendar[date.year()]?.[date.month()+1]?.[date.date()];
-  console.log(vks)
   const calcDayStart = () => {
     // const date = new Date(daySelected).toLocaleDateString().split(".");
     // return new Date(`${date[2]}-${date[1]}-${date[0]} ${dayStartAt}`).getTime();
