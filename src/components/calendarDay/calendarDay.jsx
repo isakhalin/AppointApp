@@ -2,7 +2,7 @@
 // clg  - console.log()
 
 import React, {useEffect, useState} from "react";
-
+import moment from "moment";
 // React ToolKit
 import {useSelector} from "react-redux";
 
@@ -17,14 +17,20 @@ import classes from './calendarDay.module.css';
 import {VksConstructor} from "../vksConstructor";
 import {VksElement} from "./vksElement";
 import {MyModal} from "../modals";
+import {useNavigate, useParams} from "react-router-dom";
 
-export const CalendarDay = ({daySelected}) => { // В daySelected приходит дата в милисекундах
+// export const CalendarDay = ({daySelected}) => { // В daySelected приходит дата в милисекундах
+export const CalendarDay = () => {
   const [dayStartAt, setDayStartAt] = useState("09:00:00");
-  const [dayEndAt, setDayEndAt] = useState("21:00:00");
+  // const [dayEndAt, setDayEndAt] = useState("21:00:00");
+  const [dayEndAt, setDayEndAt] = useState("19:00:00");
   const [modalOpen, setModalOpen] = useState(false);
   const [currentEl, setCurrentEl] = useState({title: ``})
 
   const {calendar} = useSelector((state) => state.calendarReducer);
+
+  const navigate = useNavigate();
+  const params = useParams();
 
   const handleModalOpen = (el) => {
     console.log("EL", el);
@@ -33,101 +39,147 @@ export const CalendarDay = ({daySelected}) => { // В daySelected приходи
     setModalOpen(true);
   }
 
-  const date = new Date(daySelected);
-
-  const vks = calendar[date.getFullYear()]?.[date.getMonth() + 1]?.[date.getDate()];
-
+  // const date = new Date(daySelected);
+  // console.log('date',date)
+  //
+  // const vks = calendar[date.getFullYear()]?.[date.getMonth() + 1]?.[date.getDate()];
+  //
+  // const calcDayStart = () => {
+  //   const date = new Date(daySelected).toLocaleDateString().split(".");
+  //   return new Date(`${date[2]}-${date[1]}-${date[0]} ${dayStartAt}`).getTime();
+  // }
+  //
+  // const calcDayEnd = () => {
+  //   const date = new Date(daySelected).toLocaleDateString().split(".");
+  //   return new Date(`${date[2]}-${date[1]}-${date[0]} ${dayEndAt}`).getTime();
+  // }
+  const date = moment(`${params.year}.${params.month}.${params.day}`);
+  const vks = calendar[date.year()]?.[date.month()+1]?.[date.date()];
   const calcDayStart = () => {
-    const date = new Date(daySelected).toLocaleDateString().split(".");
-    return new Date(`${date[2]}-${date[1]}-${date[0]} ${dayStartAt}`).getTime();
+    // const date = new Date(daySelected).toLocaleDateString().split(".");
+    // return new Date(`${date[2]}-${date[1]}-${date[0]} ${dayStartAt}`).getTime();
+    return +moment(`${params.year}.${params.month}.${params.day} ${dayStartAt}`).format('x')
   }
 
   const calcDayEnd = () => {
-    const date = new Date(daySelected).toLocaleDateString().split(".");
-    return new Date(`${date[2]}-${date[1]}-${date[0]} ${dayEndAt}`).getTime();
+    // const date = new Date(daySelected).toLocaleDateString().split(".");
+    // return new Date(`${date[2]}-${date[1]}-${date[0]} ${dayEndAt}`).getTime();
+    return +moment(`${params.year}.${params.month}.${params.day} ${dayEndAt}`).format('x')
+
   }
 
-  const day = [
-    //TODO костыли, найти решение
-    {
-      start: calcDayStart(),
-    },
-    {
-      start: calcDayStart() + (1000 * 60 * 30),
-    },
-    {
-      start: calcDayStart() + (1000 * 60 * 30) * 2,
-    },
-    {
-      start: calcDayStart() + (1000 * 60 * 30) * 3,
-    },
-    {
-      start: calcDayStart() + (1000 * 60 * 30) * 4,
-    },
-    {
-      start: calcDayStart() + (1000 * 60 * 30) * 5,
-    },
-    {
-      start: calcDayStart() + (1000 * 60 * 30) * 6,
-    },
-    {
-      start: calcDayStart() + (1000 * 60 * 30) * 7,
-    },
-    {
-      start: calcDayStart() + (1000 * 60 * 30) * 8,
-    },
-    {
-      start: calcDayStart() + (1000 * 60 * 30) * 9,
-    },
-    {
-      start: calcDayStart() + (1000 * 60 * 30) * 10,
-    },
-    {
-      start: calcDayStart() + (1000 * 60 * 30) * 11,
-    },
-    {
-      start: calcDayStart() + (1000 * 60 * 30) * 12,
-    },
-    {
-      start: calcDayStart() + (1000 * 60 * 30) * 13,
-    },
-    {
-      start: calcDayStart() + (1000 * 60 * 30) * 14,
-    },
-    {
-      start: calcDayStart() + (1000 * 60 * 30) * 15,
-    },
-    {
-      start: calcDayStart() + (1000 * 60 * 30) * 16,
-    },
-    {
-      start: calcDayStart() + (1000 * 60 * 30) * 17,
-    },
-    {
-      start: calcDayStart() + (1000 * 60 * 30) * 18,
-    },
-    {
-      start: calcDayStart() + (1000 * 60 * 30) * 19,
-    },
-    // {
-    //   title: "19:00",
-    // },
-    // {
-    //   title: "19:30",
-    // },
-    // {
-    //   title: "20:00",
-    // },
-    // {
-    //   title: "20:30",
-    // },
-    // {
-    //   title: "21:00",
-    // },
-    // {
-    //   title: "21:30",
-    // },
-  ];
+  // const day = [
+  //   //TODO костыли, найти решение
+  //   {
+  //     start: calcDayStart(),
+  //   },
+  //   {
+  //     start: calcDayStart() + (1000 * 60 * 30),
+  //   },
+  //   {
+  //     start: calcDayStart() + (1000 * 60 * 30) * 2,
+  //   },
+  //   {
+  //     start: calcDayStart() + (1000 * 60 * 30) * 3,
+  //   },
+  //   {
+  //     start: calcDayStart() + (1000 * 60 * 30) * 4,
+  //   },
+  //   {
+  //     start: calcDayStart() + (1000 * 60 * 30) * 5,
+  //   },
+  //   {
+  //     start: calcDayStart() + (1000 * 60 * 30) * 6,
+  //   },
+  //   {
+  //     start: calcDayStart() + (1000 * 60 * 30) * 7,
+  //   },
+  //   {
+  //     start: calcDayStart() + (1000 * 60 * 30) * 8,
+  //   },
+  //   {
+  //     start: calcDayStart() + (1000 * 60 * 30) * 9,
+  //   },
+  //   {
+  //     start: calcDayStart() + (1000 * 60 * 30) * 10,
+  //   },
+  //   {
+  //     start: calcDayStart() + (1000 * 60 * 30) * 11,
+  //   },
+  //   {
+  //     start: calcDayStart() + (1000 * 60 * 30) * 12,
+  //   },
+  //   {
+  //     start: calcDayStart() + (1000 * 60 * 30) * 13,
+  //   },
+  //   {
+  //     start: calcDayStart() + (1000 * 60 * 30) * 14,
+  //   },
+  //   {
+  //     start: calcDayStart() + (1000 * 60 * 30) * 15,
+  //   },
+  //   {
+  //     start: calcDayStart() + (1000 * 60 * 30) * 16,
+  //   },
+  //   {
+  //     start: calcDayStart() + (1000 * 60 * 30) * 17,
+  //   },
+  //   {
+  //     start: calcDayStart() + (1000 * 60 * 30) * 18,
+  //   },
+  //   {
+  //     start: calcDayStart() + (1000 * 60 * 30) * 19,
+  //   },
+  //   // {
+  //   //   title: "19:00",
+  //   // },
+  //   // {
+  //   //   title: "19:30",
+  //   // },
+  //   // {
+  //   //   title: "20:00",
+  //   // },
+  //   // {
+  //   //   title: "20:30",
+  //   // },
+  //   // {
+  //   //   title: "21:00",
+  //   // },
+  //   // {
+  //   //   title: "21:30",
+  //   // },
+  // ];
+
+  //Вариант 1 для заполнения дня
+  /**
+   *
+   * @param startDay {Number} старт счетчика
+   * @param endDay {Number} конец счетчика
+   * @param interval {Number} интервал на который увеличивается счетчик
+   * @returns {*[]} Возвращает массив
+   */
+  const getDayArr = (startDay, endDay, interval) => {
+    let tempArr = [];
+    for (let i = startDay; i < endDay; i += interval) {
+      tempArr.push({start: i})
+    }
+    return tempArr
+  };
+  const day = getDayArr(calcDayStart(), calcDayEnd(), 1000 * 60 * 30)
+  // console.log('day1: ', day1 )
+
+  // Вариант 2 для заполнения дня
+  // const dayStartAtForDayLength = calcDayStart();
+  // const dayStartEndForDayLength = calcDayEnd();
+  //
+  // const dayLength = (dayStartEndForDayLength - dayStartAtForDayLength) / 1000 / 60 / 30;
+  //
+  // const day1 = Array.from({ length: dayLength }, (_,idx) => {
+  //    return {
+  //      start: calcDayStart() + (1000 * 60 * 30) * idx ,
+  //    }
+  // });
+  // console.log('day1', day1)
 
   return (
     <div>
@@ -171,7 +223,8 @@ export const CalendarDay = ({daySelected}) => { // В daySelected приходи
           <VksElement
             key={el.start}
             element={el}
-            calcDayStart={calcDayStart(daySelected)}
+            // calcDayStart={calcDayStart(daySelected)}
+            calcDayStart={calcDayStart()}
             handleModalOpen={() => handleModalOpen(el)}
           />
         ))}
@@ -193,7 +246,7 @@ export const CalendarDay = ({daySelected}) => { // В daySelected приходи
           <VksConstructor calcDayStart={calcDayStart()} calcDayEnd={calcDayEnd()} currentEl={currentEl}/>
         </MyModal>
       </Box>
-
+      <Button onClick={()=>navigate(`/${params.year}/${params.month}`)}>В календарь</Button>
     </div>
   );
 };

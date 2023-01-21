@@ -6,12 +6,16 @@ import Stack from "@mui/material/Stack";
 import {DesktopDatePicker} from "@mui/x-date-pickers/DesktopDatePicker";
 import TextField from "@mui/material/TextField";
 import {TimePicker} from "@mui/x-date-pickers/TimePicker";
+import {useNavigate, useParams} from "react-router-dom";
 
-export const DateSelector = ({daySelected, setDaySelected}) => {
-  // const [value, setValue] = useState(moment(daySelected));
+// export const DateSelector = ({daySelected, setDaySelected}) => {
+export const DateSelector = () => {
+  const params = useParams();
+  const navigate = useNavigate();
 
   const handleChange = (newValue) => {
-    setDaySelected(Number(newValue.format("x")));
+    // setDaySelected(Number(newValue.format("x")));
+    navigate(`/${newValue.year()}/${newValue.month() + 1}/${newValue.date()}`)
   };
 
   return (
@@ -21,7 +25,8 @@ export const DateSelector = ({daySelected, setDaySelected}) => {
           <DesktopDatePicker
             label="Дата бронирования"
             inputFormat="DD.MM.YYYY"
-            value={daySelected}
+            value={moment(`${params.year}.${params.month}.${params.day}`)}
+            // value={daySelected}
             onChange={handleChange}
             renderInput={(params) => <TextField {...params} />}
           />
