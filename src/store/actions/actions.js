@@ -1,5 +1,5 @@
-import {createAsyncThunk} from "@reduxjs/toolkit";
-import { calendarApi } from "../../api/api";
+import {createAsyncThunk, isRejectedWithValue} from "@reduxjs/toolkit";
+import {calendarApi} from "../../api/api";
 // import {authApi} from "../../api/api";
 
 // export const login = createAsyncThunk(
@@ -19,9 +19,9 @@ export const calendar = createAsyncThunk(
   async (_, {rejectedWithValue}) => {
     try {
       //TODO заюзать апишку для получения календаря с бека
-      const { data } = await calendarApi.fetchCalendar();
-      console.log("CALENDAR", data[0]);
-      return data[0];
+      const {data} = await calendarApi.fetchCalendar();
+      console.log("CALENDAR", data);
+      return data;
     } catch (error) {
       return rejectedWithValue(error)
     }
@@ -32,10 +32,25 @@ export const setEvent = createAsyncThunk(
   "calendar/setEvent",
   async (event, {rejectedWithValue}) => {
     try {
-      const {data} = await calendarApi.setCalendar();
-      console.log("DATA", data)
+      const {data} = await calendarApi.setEvent(event.year, event.month, event.day, event.data);
+      // console.log("KKKK", event.year, event.month, event.day, event.data)
+      // console.log("DATA", data.data)
+      return data.data
     } catch (error) {
       return rejectedWithValue(error)
+    }
+  }
+);
+
+export const deleteEvent = createAsyncThunk(
+  "calendar/deleteEvent",
+  async ([year, month, day, id], {rejectedWithValue}) => {
+    try {
+    const {data} = await calendarApi.deleteEvent(year, month, day, id)
+      console.log("CCC", data.data)
+      return data.data;
+    } catch (error) {
+      return rejectedWithValue(error);
     }
   }
 );

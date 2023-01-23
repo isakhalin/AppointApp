@@ -3,9 +3,16 @@ import styled from '@emotion/styled'
 import Button from "@mui/material/Button";
 import DeleteOutlinedIcon from '@mui/icons-material/DeleteOutlined';
 import EditOutlinedIcon from '@mui/icons-material/EditOutlined';
+
+// RTK comps
 import {useDispatch} from "react-redux";
 
+// Router comps
+import {useParams} from "react-router-dom";
+
+// Actions
 import {deleteVks} from "../../../store/reducers/calendarSlice";
+import {deleteEvent} from "../../../store/actions/actions"
 
 const percentPerMinute = 0.166666667;
 
@@ -22,9 +29,12 @@ const StyledDiv = styled.div`
 
 export const VksElement = ({element, calcDayStart, handleModalOpen}) => {
   const dispatch = useDispatch();
+  const params = useParams();
 
   const handleDeleteVks = () => {
-    dispatch(deleteVks(element));
+    // console.log("ID", element.id)
+    dispatch(deleteEvent([params.year, params.month, params.day, element.id]))
+    // dispatch(deleteVks(element));
   }
 
   const handleEditVks = (element) => {

@@ -15,15 +15,11 @@ export const calendarApi = {
     return instance.get(`${BASE_URL}/getCalendar`);
   },
 
-  setCalendar: () => {
-    const newVks = {
-      id: "398546584",
-      title: "TEST",
-      description: "TEST DESCRIPTION",
-      start: 1675213200000,
-      end: 1675223100000,
-    }
-
-    return instance.post(`${BASE_URL}/setEvent`, newVks)
+  setEvent: (year, month, day, event) => {
+    return instance.post(`${BASE_URL}/calendar/add/${year}/${month}/${day}`, event);
   },
+
+  deleteEvent: (year, month, day, id) => {
+    return instance.delete(`${BASE_URL}/calendar/remove/${year}/${month}/${day}/${id}`);
+  }
 }

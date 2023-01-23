@@ -1,6 +1,12 @@
 import React, {useEffect, useState} from "react";
 //import dayjs from "dayjs";
 
+// React ToolKit
+import {useDispatch} from "react-redux";
+
+// Import Router comps
+import {useParams} from "react-router-dom";
+
 // import { DateTimePicker } from "@mui/x-date-pickers/DateTimePicker";
 import {DesktopDatePicker} from "@mui/x-date-pickers/DesktopDatePicker";
 // import { MobileDatePicker } from "@mui/x-date-pickers/MobileDatePicker";
@@ -16,8 +22,8 @@ import Button from "@mui/material/Button";
 import Box from "@mui/material/Box";
 
 // Import Actions
+import {setEvent} from "../../store/actions/actions";
 import {setVks, editVks} from "../../store/reducers/calendarSlice"
-import {useDispatch} from "react-redux";
 
 export const VksConstructor = ({calcDayStart, calcDayEnd, currentEl}) => {
   const [startValue, setStartValue] = useState(moment(currentEl.start));
@@ -26,11 +32,13 @@ export const VksConstructor = ({calcDayStart, calcDayEnd, currentEl}) => {
   const [description, setDescription] = useState(currentEl.description ? currentEl.description : "");
   const dispatch = useDispatch();
 
+  const params = useParams();
+
   // console.log("!!!startValue", startValue.format("YYYY-MM-DD HH:mm:ss"))
 
   const vksCreate = () => {
     const newVks = {
-      id: currentEl.id ? currentEl.id : Math.floor((Math.random() * 1000000000)),
+      id: currentEl.id ? currentEl.id : Math.floor((Math.random() * 1000000000)).toString(),
       title: title,
       description: description,
       start: Number(startValue.format("x")), // 1671523200000
@@ -38,15 +46,14 @@ export const VksConstructor = ({calcDayStart, calcDayEnd, currentEl}) => {
     }
     if (startValue.format("x") !== endValue.format("x")) {
       if(!currentEl.id){
-        dispatch(setVks(newVks));
+        // dispatch(setVks(newVks));
+        dispatch(setEvent({year: params.year, month: params.month, day: params.day, data: newVks}))
       } else {
         dispatch(editVks(newVks));
       }
-
     } else {
       console.log("Время начала ВКС не может совпадать с временем завершения")
     }
-
   }
 
   // useEffect(() => {

@@ -41,15 +41,15 @@ function App() {
 
   //Обычный роутер
   const router = createBrowserRouter(routes);
-  //мемори роутер
-  const memRouter = createMemoryRouter(routes, {
-    initialEntries: ['/'],
-    initialIndex: 0,
-  })
+  // // мемори роутер
+  // const memRouter = createMemoryRouter(routes, {
+  //   initialEntries: ['/'],
+  //   initialIndex: 0,
+  // })
 
   useEffect(() => {
     dispatch(calendar());
-    dispatch(setEvent());
+    // dispatch(setEvent());
   }, [])
 
   return (

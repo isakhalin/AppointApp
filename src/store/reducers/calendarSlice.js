@@ -1,7 +1,11 @@
 import {createSlice, current} from "@reduxjs/toolkit";
 
 // Actions
-import {calendar} from "../actions/actions"
+import {
+  calendar,
+  setEvent,
+  deleteEvent
+} from "../actions/actions"
 
 const initialState = {
   calendar: {
@@ -95,6 +99,34 @@ const calendarSlice = createSlice({
       state.loading = false;
       state.error = '';
       state.calendar = action.payload
+    },
+    [calendar.rejected.type]: (state, action) => {
+      state.loading = false
+      state.error = action.payload
+    },
+    [setEvent.pending.type]: (state, action) => {
+      state.loading = true
+    },
+    [setEvent.fulfilled.type]: (state, action) => {
+      state.loading = false;
+      state.error = '';
+      state.calendar = action.payload;
+    },
+    [setEvent.rejected.type]: (state, action) => {
+      state.loading = false;
+      state.error = action.payload;
+    },
+    [deleteEvent.pending.type]: (state, action) => {
+      state.loading = true;
+    },
+    [deleteEvent.fulfilled.type]: (state, action) => {
+      state.loading = false;
+      state.error = '';
+      state.calendar = action.payload;
+    },
+    [deleteEvent.rejected.type]: (state, action) => {
+      state.loading = false;
+      state.error = action.payload;
     },
     // [fetchUserProfile.pending.type]: (state, action) => {
     //   state.loading = true

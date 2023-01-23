@@ -3,6 +3,10 @@
 
 import React, {useEffect, useState} from "react";
 import moment from "moment";
+
+// Import Router comps
+import {useNavigate, useParams} from "react-router-dom";
+
 // React ToolKit
 import {useSelector} from "react-redux";
 
@@ -17,7 +21,6 @@ import classes from './calendarDay.module.css';
 import {VksConstructor} from "../vksConstructor";
 import {VksElement} from "./vksElement";
 import {MyModal} from "../modals";
-import {useNavigate, useParams} from "react-router-dom";
 
 // export const CalendarDay = ({daySelected}) => { // В daySelected приходит дата в милисекундах
 export const CalendarDay = () => {
