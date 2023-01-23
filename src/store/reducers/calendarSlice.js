@@ -1,5 +1,7 @@
 import {createSlice, current} from "@reduxjs/toolkit";
-// import {calendarDay} from "../actions/actions";
+
+// Actions
+import {calendar} from "../actions/actions"
 
 const initialState = {
   calendar: {
@@ -11,28 +13,28 @@ const initialState = {
       },
       2: {
         1: [
-          {
-            id: "434264361",
-            title: "new",
-            description: "",
-            start: 1675204200000, // new Date("2023-02-01 09:30:00").getTime()
-            end: 1675206000000,   // new Date("2023-02-01 10:00:00").getTime()
-            styles: {
-              top: 0,
-              height: "5%",
-            },
-          },
-          {
-            id: "43437575361",
-            title: "Вопросы общего образования образования вопросы общего образования образования",
-            description: "",
-            start: 1675207800000, // new Date("2023-02-01 10:30:00").getTime()
-            end: 1675212300000,   // Date("2023-02-01 11:45:00").getTime()
-            styles: {
-              top: "15%", // 1 минута это 0,166666%. Рассчет для пикселей: 30 минут это 30px (start-dayStartAt)/60000
-              height: "12.5%", // Рассчет для процентов 0.166666667 * мин. Рассчет для пикселей: (end-start)/60000
-            },
-          },
+          // {
+          //   id: "434264361",
+          //   title: "new",
+          //   description: "",
+          //   start: 1675204200000, // new Date("2023-02-01 09:30:00").getTime()
+          //   end: 1675206000000,   // new Date("2023-02-01 10:00:00").getTime()
+          //   styles: {
+          //     top: 0,
+          //     height: "5%",
+          //   },
+          // },
+          // {
+          //   id: "43437575361",
+          //   title: "Вопросы общего образования образования вопросы общего образования образования",
+          //   description: "",
+          //   start: 1675207800000, // new Date("2023-02-01 10:30:00").getTime()
+          //   end: 1675212300000,   // Date("2023-02-01 11:45:00").getTime()
+          //   styles: {
+          //     top: "15%", // 1 минута это 0,166666%. Рассчет для пикселей: 30 минут это 30px (start-dayStartAt)/60000
+          //     height: "12.5%", // Рассчет для процентов 0.166666667 * мин. Рассчет для пикселей: (end-start)/60000
+          //   },
+          // },
         ],
         2: [],
         3: [],
@@ -86,6 +88,14 @@ const calendarSlice = createSlice({
     }
   },
   extraReducers: {
+    [calendar.pending.type]: (state, action) => {
+      state.loading = true
+    },
+    [calendar.fulfilled.type]: (state, action) => {
+      state.loading = false;
+      state.error = '';
+      state.calendar = action.payload
+    },
     // [fetchUserProfile.pending.type]: (state, action) => {
     //   state.loading = true
     // },

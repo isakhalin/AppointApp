@@ -1,5 +1,9 @@
-import React, {useState} from 'react';
-import {createBrowserRouter,createMemoryRouter, RouterProvider} from 'react-router-dom';
+import React, {useEffect, useState} from 'react';
+import {createBrowserRouter, createMemoryRouter, RouterProvider} from 'react-router-dom';
+
+// Redux comps
+import {useDispatch} from "react-redux";
+
 // Import styles
 import './App.css';
 
@@ -7,9 +11,12 @@ import './App.css';
 import {CalendarDay, DateSelector,} from "./components";
 import {CalendarMonth} from "./components/calendarMonth";
 
+// Actions
+import {calendar, setEvent} from './store/actions/actions'
 
 function App() {
   // const [daySelected, setDaySelected] = useState(new Date().getTime());
+  const dispatch = useDispatch();
 
   const routes = [
     {
@@ -36,9 +43,15 @@ function App() {
   const router = createBrowserRouter(routes);
   //мемори роутер
   const memRouter = createMemoryRouter(routes, {
-    initialEntries:['/'],
+    initialEntries: ['/'],
     initialIndex: 0,
   })
+
+  useEffect(() => {
+    dispatch(calendar());
+    dispatch(setEvent());
+  }, [])
+
   return (
     <div className="App">
       {/*<div className="content-wpr">*/}
