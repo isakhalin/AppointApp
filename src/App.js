@@ -13,9 +13,9 @@ import {CalendarMonth} from "./components/calendarMonth";
 
 // Actions
 import {calendar, setEvent} from './store/actions/actions'
+import {Header} from "./components/header";
 
 function App() {
-  // const [daySelected, setDaySelected] = useState(new Date().getTime());
   const dispatch = useDispatch();
 
   const routes = [
@@ -30,17 +30,15 @@ function App() {
     {
       path: '/:year/:month/:day',
       element: <div className="content-wpr">
-        {/*<div style={{marginBottom: "5px"}}>Kunilingoosee App</div>*/}
-        {/*<DateSelector daySelected={daySelected} setDaySelected={setDaySelected}/>*/}
-        {/*<CalendarDay daySelected={daySelected}/>*/}
         <DateSelector/>
         <CalendarDay/>
       </div>
     }
   ];
 
-  //Обычный роутер
+  // Обычный роутер
   const router = createBrowserRouter(routes);
+
   // // мемори роутер
   // const memRouter = createMemoryRouter(routes, {
   //   initialEntries: ['/'],
@@ -49,17 +47,11 @@ function App() {
 
   useEffect(() => {
     dispatch(calendar());
-    // dispatch(setEvent());
   }, [])
 
   return (
     <div className="App">
-      {/*<div className="content-wpr">*/}
-      {/*  <DateSelector daySelected={daySelected} setDaySelected={setDaySelected}/>*/}
-      {/*  <CalendarDay daySelected={daySelected}/>*/}
-      {/*</div>*/}
-      {/*<CalendarMonth/>*/}
-      <div style={{marginBottom: "5px"}}>Kunilingoosee App</div>
+      <Header/>
       <RouterProvider router={router}/>
     </div>
   );

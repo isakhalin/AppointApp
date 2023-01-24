@@ -21,5 +21,8 @@ export const calendarApi = {
 
   deleteEvent: (year, month, day, id) => {
     return instance.delete(`${BASE_URL}/calendar/remove/${year}/${month}/${day}/${id}`);
-  }
+  },
+  editEvent: (year, month, day, event) => {
+    return instance.put(`${BASE_URL}/calendar/edit/${year}/${month}/${day}`, event);
+  },
 }

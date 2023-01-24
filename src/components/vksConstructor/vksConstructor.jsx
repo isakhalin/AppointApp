@@ -1,5 +1,4 @@
-import React, {useEffect, useState} from "react";
-//import dayjs from "dayjs";
+import React, {useState} from "react";
 
 // React ToolKit
 import {useDispatch} from "react-redux";
@@ -7,9 +6,6 @@ import {useDispatch} from "react-redux";
 // Import Router comps
 import {useParams} from "react-router-dom";
 
-// import { DateTimePicker } from "@mui/x-date-pickers/DateTimePicker";
-import {DesktopDatePicker} from "@mui/x-date-pickers/DesktopDatePicker";
-// import { MobileDatePicker } from "@mui/x-date-pickers/MobileDatePicker";
 import {AdapterMoment} from "@mui/x-date-pickers/AdapterMoment";
 import moment from "moment/moment";
 
@@ -22,10 +18,9 @@ import Button from "@mui/material/Button";
 import Box from "@mui/material/Box";
 
 // Import Actions
-import {setEvent} from "../../store/actions/actions";
-import {setVks, editVks} from "../../store/reducers/calendarSlice"
+import {setEvent, editEvent} from "../../store/actions/actions";
 
-export const VksConstructor = ({calcDayStart, calcDayEnd, currentEl}) => {
+export const VksConstructor = ({calcDayStart, calcDayEnd, currentEl, setModalOpen}) => {
   const [startValue, setStartValue] = useState(moment(currentEl.start));
   const [endValue, setEndValue] = useState(moment(currentEl.end ? currentEl.end : currentEl.start));
   const [title, setTitle] = useState(currentEl.title ? currentEl.title : "");
@@ -33,8 +28,6 @@ export const VksConstructor = ({calcDayStart, calcDayEnd, currentEl}) => {
   const dispatch = useDispatch();
 
   const params = useParams();
-
-  // console.log("!!!startValue", startValue.format("YYYY-MM-DD HH:mm:ss"))
 
   const vksCreate = () => {
     const newVks = {
@@ -45,28 +38,17 @@ export const VksConstructor = ({calcDayStart, calcDayEnd, currentEl}) => {
       end: Number(endValue.format("x")), // 1671526800000
     }
     if (startValue.format("x") !== endValue.format("x")) {
-      if(!currentEl.id){
-        // dispatch(setVks(newVks));
+      if (!currentEl.id) {
         dispatch(setEvent({year: params.year, month: params.month, day: params.day, data: newVks}))
+        setModalOpen(false);
       } else {
-        dispatch(editVks(newVks));
+        dispatch(editEvent([params.year, params.month, params.day, newVks]));
+        setModalOpen(false);
       }
     } else {
       console.log("Время начала ВКС не может совпадать с временем завершения")
     }
   }
-
-  // useEffect(() => {
-  //   if (currentEl) {
-  //     const dayStartAt = moment(calcDayStart).format("YYYY-MM-DD");
-  //     const vksStartAt = moment(currentEl.start).format("YYYY-MM-DD HH:mm:ss");
-  //     console.log("CURRENT", currentEl)
-  //     console.log("!!dayStartAt!!", `${dayStartAt} ${vksStartAt}:00`)
-  //     // setStartValue(moment(`${dayStartAt} ${vksStartAt}:00`));
-  //     // setEndValue(moment(`${dayStartAt} ${vksStartAt}:00`));
-  //     setStartValue(moment())
-  //   }
-  // }, [currentEl])
 
   return (
     <LocalizationProvider dateAdapter={AdapterMoment}>
@@ -78,8 +60,6 @@ export const VksConstructor = ({calcDayStart, calcDayEnd, currentEl}) => {
           onChange={(newValue) => {
             setStartValue(newValue);
           }}
-          // minTime={moment('2018-01-01T08:00')}
-          // maxTime={moment('2018-01-01T18:45')}
         />
         <TimePicker
           renderInput={(params) => <TextField {...params} />}
@@ -89,7 +69,6 @@ export const VksConstructor = ({calcDayStart, calcDayEnd, currentEl}) => {
             setEndValue(newValue);
           }}
           minTime={startValue}
-          // maxTime={moment('2023-01-10T00:00')}
         />
         <Box
           component="form"
@@ -116,21 +95,6 @@ export const VksConstructor = ({calcDayStart, calcDayEnd, currentEl}) => {
             onChange={(e) => setDescription(e.target.value)}
           />
         </Box>
-        {/*<TimePicker*/}
-        {/*  renderInput={(params) => <TextField {...params} />}*/}
-        {/*  label="Завершение ВКС"*/}
-        {/*  value={value}*/}
-        {/*  onChange={(newValue) => {*/}
-        {/*    setValue(newValue);*/}
-        {/*  }}*/}
-        {/*  shouldDisableTime={(timeValue, clockType) => {*/}
-        {/*    if (clockType === 'hours' && timeValue % 2) {*/}
-        {/*      return true;*/}
-        {/*    }*/}
-
-        {/*    return false;*/}
-        {/*  }}*/}
-        {/*/>*/}
         <Button
           variant="contained"
           onClick={vksCreate}

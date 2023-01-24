@@ -46,11 +46,23 @@ export const deleteEvent = createAsyncThunk(
   "calendar/deleteEvent",
   async ([year, month, day, id], {rejectedWithValue}) => {
     try {
-    const {data} = await calendarApi.deleteEvent(year, month, day, id)
-      console.log("CCC", data.data)
+      const {data} = await calendarApi.deleteEvent(year, month, day, id)
       return data.data;
     } catch (error) {
       return rejectedWithValue(error);
     }
   }
 );
+
+export const editEvent = createAsyncThunk(
+  "calendar/editEvent",
+  async ([year, month, day, event], {rejectedWithValue}) => {
+    try {
+      const {data} = await calendarApi.editEvent(year, month, day, event);
+      // console.log("CCC", data.data)
+      return data.data;
+    } catch (error) {
+      return rejectedWithValue(error);
+    }
+  }
+)

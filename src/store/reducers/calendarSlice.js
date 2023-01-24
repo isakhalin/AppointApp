@@ -4,7 +4,8 @@ import {createSlice, current} from "@reduxjs/toolkit";
 import {
   calendar,
   setEvent,
-  deleteEvent
+  deleteEvent,
+  editEvent,
 } from "../actions/actions"
 
 const initialState = {
@@ -59,37 +60,37 @@ const calendarSlice = createSlice({
   name: 'calendar',
   initialState,
   reducers: {
-    setVks(state, action) {
-      const date = new Date(action.payload.start);
-      if (!state.calendar[date.getFullYear()]) {
-        state.calendar = {...state.calendar, [date.getFullYear()]: {}}
-      }
-      if (!state.calendar[date.getFullYear()][date.getMonth() + 1]) {
-        state.calendar[date.getFullYear()] = {...state.calendar[date.getFullYear()], [date.getMonth() + 1]: {}}
-      }
-      if (!state.calendar[date.getFullYear()][date.getMonth() + 1][date.getDate()]) {
-        state.calendar[date.getFullYear()][date.getMonth() + 1] = {
-          ...state.calendar[date.getFullYear()][date.getMonth() + 1],
-          [date.getDate()]: []
-        }
-      }
-
-      state.calendar[date.getFullYear()][date.getMonth() + 1][date.getDate()].push(action.payload)
-    },
-
-    deleteVks(state, action) {
-      const date = new Date(action.payload.start);
-      state.calendar[date.getFullYear()][date.getMonth() + 1][date.getDate()] = state.calendar[date.getFullYear()][date.getMonth() + 1][date.getDate()].filter(el => el.id !== action.payload.id)
-    },
-
-    editVks(state, action) {
-      console.log("action.payload", action.payload)
-      const date = new Date(action.payload.start);
-      // Удаление изменяемой ВКС
-      state.calendar[date.getFullYear()][date.getMonth() + 1][date.getDate()] = state.calendar[date.getFullYear()][date.getMonth() + 1][date.getDate()].filter(el => el.id !== action.payload.id)
-      // Добавление измененной ВКС
-      state.calendar[date.getFullYear()][date.getMonth() + 1][date.getDate()].push(action.payload)
-    }
+    // setVks(state, action) {
+    //   const date = new Date(action.payload.start);
+    //   if (!state.calendar[date.getFullYear()]) {
+    //     state.calendar = {...state.calendar, [date.getFullYear()]: {}}
+    //   }
+    //   if (!state.calendar[date.getFullYear()][date.getMonth() + 1]) {
+    //     state.calendar[date.getFullYear()] = {...state.calendar[date.getFullYear()], [date.getMonth() + 1]: {}}
+    //   }
+    //   if (!state.calendar[date.getFullYear()][date.getMonth() + 1][date.getDate()]) {
+    //     state.calendar[date.getFullYear()][date.getMonth() + 1] = {
+    //       ...state.calendar[date.getFullYear()][date.getMonth() + 1],
+    //       [date.getDate()]: []
+    //     }
+    //   }
+    //
+    //   state.calendar[date.getFullYear()][date.getMonth() + 1][date.getDate()].push(action.payload)
+    // },
+    //
+    // deleteVks(state, action) {
+    //   const date = new Date(action.payload.start);
+    //   state.calendar[date.getFullYear()][date.getMonth() + 1][date.getDate()] = state.calendar[date.getFullYear()][date.getMonth() + 1][date.getDate()].filter(el => el.id !== action.payload.id)
+    // },
+    //
+    // editVks(state, action) {
+    //   console.log("action.payload", action.payload)
+    //   const date = new Date(action.payload.start);
+    //   // Удаление изменяемой ВКС
+    //   state.calendar[date.getFullYear()][date.getMonth() + 1][date.getDate()] = state.calendar[date.getFullYear()][date.getMonth() + 1][date.getDate()].filter(el => el.id !== action.payload.id)
+    //   // Добавление измененной ВКС
+    //   state.calendar[date.getFullYear()][date.getMonth() + 1][date.getDate()].push(action.payload)
+    // }
   },
   extraReducers: {
     [calendar.pending.type]: (state, action) => {
@@ -125,6 +126,18 @@ const calendarSlice = createSlice({
       state.calendar = action.payload;
     },
     [deleteEvent.rejected.type]: (state, action) => {
+      state.loading = false;
+      state.error = action.payload;
+    },
+    [editEvent.pending.type]: (state, action) => {
+      state.loading = true;
+    },
+    [editEvent.fulfilled.type]: (state, action) => {
+      state.loading = false;
+      state.error = '';
+      state.calendar = action.payload;
+    },
+    [editEvent.rejected.type]: (state, action) => {
       state.loading = false;
       state.error = action.payload;
     },
