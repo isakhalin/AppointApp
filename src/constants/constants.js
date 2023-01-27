@@ -1,5 +1,5 @@
 export const apiVksPlaner = {
-  BASE_URL: 'http://10.0.24.12:3005/api/v1',
+  BASE_URL: 'http://localhost:3005/api/v1',
   // QUESTS: 'quests',
   // QUESTS_CREATED: 'quests/created',
   // QUESTS_AVAILABLE: 'quests/available',
