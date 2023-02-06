@@ -51,14 +51,16 @@ export const VksElement = ({element, calcDayStart, handleModalOpen}) => {
           padding: "3px 0 0 3px",
           cursor: "pointer",
         }}
+        onClick={()=> handleEditVks(element)}
       >
         {element.title}
       </span>
-        <div style={{width: "36px"}}>
-          <EditOutlinedIcon
-            sx={{fontSize: 16, color: "#e7e7e7", cursor: "pointer",}}
-            onClick={() => handleEditVks(element)}
-          />
+        <div style={{width: "18px"}}>
+          {/*Отдельная кнопка для изменения мероприятия, удалена, т.к. мероприятие редактируется по нажатию по нему*/}
+          {/*<EditOutlinedIcon*/}
+          {/*  sx={{fontSize: 16, color: "#e7e7e7", cursor: "pointer",}}*/}
+          {/*  onClick={() => handleEditVks(element)}*/}
+          {/*/>*/}
           <DeleteOutlinedIcon
             sx={{fontSize: 16, color: "red", cursor: "pointer"}}
             onClick={handleDeleteVks}

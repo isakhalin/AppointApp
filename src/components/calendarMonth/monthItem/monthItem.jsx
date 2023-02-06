@@ -6,12 +6,12 @@ import {useSelector} from "react-redux";
 import {experimentalStyled as styled} from "@mui/material/styles";
 import Paper from "@mui/material/Paper";
 
-import { useNavigate } from "react-router-dom";
-// ${({element})=> console.log(element)}
+import {useNavigate} from "react-router-dom";
+
 const Item = styled(Paper)(({theme, element}) => ({
   // backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
   //   backgroundColor: element.format('ddd') === 'cб' ? '#f675a7' : '#fff',
-    backgroundColor: element.format('ddd') === 'сб' || element.format('ddd') ===  'вс'  ? 'peachpuff' : '#fff',
+  backgroundColor: element.format('ddd') === 'сб' || element.format('ddd') === 'вс' ? 'peachpuff' : '#fff',
   ...theme.typography.body2,
   padding: theme.spacing(1),
   textAlign: 'center',
@@ -28,29 +28,28 @@ export const MonthItem = ({dayElement}) => {
   return (
     <>
       {/*<Grid item xs={2.33} sm={1.6} md={1} style={{backgroundColor:'white'}}>*/}
-        <Item element={dayElement} onClick={()=>navigate(`/${dayElement.year()}/${dayElement.month() + 1}/${dayElement.date()}`)}>
-          <Typography
-            variant="subtitle1"
-            // color="text.secondary"
-            gutterBottom
-          >
-            {dayElement.format('DD')}
-          </Typography>
-          {calendar?.[dayElement.year()]?.[dayElement.month() + 1]?.[dayElement.date()]?.map((el, idx) =>
-            (
-              <>
-                <Typography
-                  component='div'
-                  variant='caption'
-                  gutterBottom
-                  key={idx}
-                >
-                  {idx + 1} : {moment(el.start).format('hh:mm')} - {moment(el.end).format('hh:mm')}
-                </Typography>
-              </>
-            )
-          )}
-        </Item>
+      <Item element={dayElement}
+            onClick={() => navigate(`/${dayElement.year()}/${dayElement.month() + 1}/${dayElement.date()}`)}>
+        <Typography
+          variant="subtitle1"
+          // color="text.secondary"
+          gutterBottom
+        >
+          {dayElement.format('DD')}
+        </Typography>
+        {calendar?.[dayElement.year()]?.[dayElement.month() + 1]?.[dayElement.date()]?.map((el, idx) =>
+          (
+            <Typography
+              component='div'
+              variant='caption'
+              gutterBottom
+              key={`month-item-vks-${el.id}`}
+            >
+              {idx + 1} : {moment(el.start).format('hh:mm')} - {moment(el.end).format('hh:mm')}
+            </Typography>
+          )
+        )}
+      </Item>
       {/*</Grid>*/}
     </>
   );

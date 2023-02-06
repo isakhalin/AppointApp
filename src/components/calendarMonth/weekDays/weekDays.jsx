@@ -5,12 +5,9 @@ const WeekDaysDiv = styled.div`
   display: grid;
   grid-template-columns: repeat(7, minmax(0, 1fr));
   `
-
 const WeekDayDiv = styled.div`
   font-weight: bold;
 `
-
-
 export const WeekDays = () => {
   return (
     <WeekDaysDiv>
