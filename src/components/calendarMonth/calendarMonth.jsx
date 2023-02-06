@@ -10,6 +10,7 @@ import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import {MonthItem} from "./monthItem";
 import {useNavigate, useParams} from "react-router-dom";
+import {WeekDays} from "../calendarDay";
 
 
 
@@ -23,6 +24,8 @@ export const CalendarMonth = () => {
   const year = date.year()
   const month = date.month() + 1;
   const day = date.date();
+  const startOfMonth = date.startOf('month').format('dddd');
+  // console.log('!!!!', date.isSame(date))
 
   const nextMonth = () => {
 
@@ -48,19 +51,68 @@ export const CalendarMonth = () => {
 
   const dayArray = Array.from({length: daysInMonth}, (_, i)=>{
     const currentDay = moment(`${month}, ${i + 1}, ${year}`);
+    // const currentDay = moment(`${year}, ${month}, ${i + 1}`);
     return currentDay;
   });
+  const dayOfWeak = {
+    понедельник:0,
+    вторник:1,
+    среда:2,
+    четверг:3,
+    пятница:4,
+    суббота:5,
+    воскресенье:6,
+  }
+
+  const prefMonthDay = Array.from(
+    { length: dayOfWeak[startOfMonth] },
+    (_, i) => i + 1
+  );
+  const nextMonthDay = Array.from(
+    { length: 5 },
+    (_, i) => i + 1
+  );
 
   return (
-    <Box sx={{ flexGrow: 1, padding: 1}}>
+    <Box sx={{ flexGrow: 1, padding: 1, display:'flex', flexDirection:'column'}}>
+      <div>
       <Button onClick={prevMonth}><NavigateBeforeIcon/></Button>
       <Typography component='span' sx={{textTransform:"capitalize"}}>{date.format('MMMM , YYYY')}</Typography>
       <Button onClick={nextMonth}><NavigateNextIcon/></Button>
-      <Grid container spacing={{ xs: 1,md: 2 }} columns={7} sx={{justifyContent: 'center'}}>
+      </div>
+      <WeekDays/>
+      <div style={{display: 'grid', marginTop:'10px',paddingTop:'2px', gridTemplateColumns: 'repeat(7, minmax(0, 1fr))', flexGrow: 1, gap:'2px', backgroundColor: 'aliceblue'}}>
+        {prefMonthDay.map(day=>(
+          // <div key={`day-${day}`} >{day}</div>
+          <Grid item xs={2.33} sm={1.6} md={1}></Grid>
+          // <MonthItem dayElement={date} style={{backgroundColor:'grey'}} />
+        ))}
+        {/*{dayArray.map((element, idx) => (*/}
+        {/*  <div key={`day-${idx}`}>*/}
+        {/*    {idx}*/}
+        {/*  </div>*/}
+        {/*))}*/}
         {dayArray.map((element, idx) => (
           <MonthItem dayElement={element} key={idx}/>
         ))}
-      </Grid>
+        
+      </div>
+
+      {/*<Grid container spacing={{ xs: 1,md: 2 }} columns={7} sx={{justifyContent: 'center'}}>*/}
+      {/*  {prefMonthDay.map(day=>(*/}
+      {/*    // <div key={`day-${day}`} >{day}</div>*/}
+      {/*    <Grid item xs={2.33} sm={1.6} md={1}></Grid>*/}
+      {/*    // <MonthItem dayElement={date} style={{backgroundColor:'grey'}} />*/}
+      {/*  ))}*/}
+      {/*  {dayArray.map((element, idx) => (*/}
+      {/*    <MonthItem dayElement={element} key={idx}/>*/}
+      {/*  ))}*/}
+      {/*  /!*{nextMonthDay.map(day=>(*!/*/}
+      {/*  /!*  // <div key={`day-${day}`} >{day}</div>*!/*/}
+      {/*  /!*  <Grid item xs={2.33} sm={1.6} md={1}></Grid>*!/*/}
+      {/*  /!*  // <MonthItem dayElement={date} style={{backgroundColor:'grey'}} />*!/*/}
+      {/*  /!*))}*!/*/}
+      {/*</Grid>*/}
     </Box>
   );
 };

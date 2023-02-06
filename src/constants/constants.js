@@ -1,5 +1,7 @@
 export const apiVksPlaner = {
   BASE_URL: 'http://vksplanner.aso.rt.local/api/v1',
+
+  // BASE_URL: 'http://vksplanner.aso.rt.local/api/v1',
   // QUESTS: 'quests',
   // QUESTS_CREATED: 'quests/created',
   // QUESTS_AVAILABLE: 'quests/available',
