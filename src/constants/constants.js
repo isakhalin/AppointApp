@@ -1,5 +1,5 @@
 export const apiVksPlaner = {
-  BASE_URL: 'http://vksplanner.aso.rt.local/api/v1',
+  BASE_URL: 'http://vksplanner.aso.rt.local:3005/api/v1',
   // BASE_URL: 'http://localhost:3005/api/v1',
   // BASE_URL: 'http://192.168.1.101:3005/api/v1',
   // QUESTS: 'quests',
