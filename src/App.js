@@ -33,6 +33,10 @@ function App() {
         <DateSelector/>
         <CalendarDay/>
       </div>
+    },
+    {
+      path: '*',
+      element: <CalendarMonth/>,
     }
   ];
 
