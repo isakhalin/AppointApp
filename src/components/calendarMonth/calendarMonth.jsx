@@ -3,7 +3,7 @@ import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 import moment from "moment";
 import 'moment/locale/ru'
-import {useSelector} from "react-redux";
+// import {useSelector} from "react-redux";
 import NavigateBeforeIcon from '@mui/icons-material/NavigateBefore';
 import NavigateNextIcon from '@mui/icons-material/NavigateNext';
 import Button from "@mui/material/Button";
@@ -33,7 +33,6 @@ export const CalendarMonth = () => {
       navigate(`/${nextMonth.year()}/${(nextMonth.format('M'))}`)
       return nextMonth
       // return moment(new Date(prevState.year(), prevState.month() + 1));
-
     })
   }
   const prevMonth = () => {
@@ -64,10 +63,6 @@ export const CalendarMonth = () => {
 
   const prefMonthDay = Array.from(
     {length: dayOfWeak[startOfMonth]},
-    (_, i) => i + 1
-  );
-  const nextMonthDay = Array.from(
-    {length: 5},
     (_, i) => i + 1
   );
 
