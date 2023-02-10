@@ -27,6 +27,8 @@ const Item = styled(Paper)(({theme, element}) => ({
 export const MonthItem = ({dayElement}) => {
   const {calendar} = useSelector((state) => state.calendarReducer);
   const navigate = useNavigate();
+  const copyVksArray = calendar?.[dayElement.year()]?.[dayElement.month() + 1]?.[dayElement.date()]?.map((el) => el)
+  const sortedVksArray = copyVksArray ? copyVksArray.sort((a, b) => a.start - b.start) : [] ;
 
   return (
     <>
@@ -40,7 +42,7 @@ export const MonthItem = ({dayElement}) => {
         >
           {dayElement.format('DD')}
         </Typography>
-        {calendar?.[dayElement.year()]?.[dayElement.month() + 1]?.[dayElement.date()]?.map((el, idx) =>
+        {sortedVksArray.map((el, idx) =>
           (
             <Typography
               component='div'
@@ -48,7 +50,7 @@ export const MonthItem = ({dayElement}) => {
               gutterBottom
               key={`month-item-vks-${el.id}`}
             >
-              {idx + 1} : {moment(el.start).format('hh:mm')} - {moment(el.end).format('hh:mm')}
+              {idx + 1} : {moment(el.start).format('HH:mm')} - {moment(el.end).format('HH:mm')}
             </Typography>
           )
         )}
