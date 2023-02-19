@@ -1,14 +1,6 @@
 import React from 'react';
-
-// Import styles
+import {Calendar, DateSelector} from './components';
 import './App.css';
-
-// Import custom comps
-import {
-  Calendar,
-  DateSelector,
-  VksConstructor,
-} from "./components";
 
 function App() {
   return (

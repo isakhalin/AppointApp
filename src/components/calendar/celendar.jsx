@@ -1,10 +1,5 @@
-// rafc - создает реакт компонент
-// clg  - console.log()
-
-import React, {useState} from "react";
-
-// Import custom comps
-import {VksConstructor} from "../vksConstructor";
+import React, {useState} from 'react';
+import {VksConstructor} from '../vksConstructor';
 
 export const Calendar = () => {
   const [vks, setVks] = useState([
@@ -42,7 +37,7 @@ export const Calendar = () => {
         boxSizing: "border-box",
       },
     },
-  ])
+  ]);
 
   const [day, setDay] = useState([
     {
@@ -123,7 +118,7 @@ export const Calendar = () => {
     {
       title: "21:30",
     },
-  ])
+  ]);
 
   return (
     <div>

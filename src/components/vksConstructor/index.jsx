@@ -1,1 +1,1 @@
-export * from "./vksConstructor";
+export * from './vksConstructor';
