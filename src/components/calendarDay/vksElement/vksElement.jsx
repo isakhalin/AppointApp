@@ -3,7 +3,7 @@ import {useDispatch} from 'react-redux';
 import {useParams} from "react-router-dom";
 import styled from '@emotion/styled';
 import DeleteOutlinedIcon from '@mui/icons-material/DeleteOutlined';
-import {deleteEvent} from "../../../store";
+import {deleteEvent} from '../../../store';
 
 const percentPerMinute = 0.166666667;
 
@@ -13,9 +13,9 @@ const StyledDiv = styled.div`
   top: ${({
   element,
   calcDayStart
-}) => ((element.start - calcDayStart) / 60000) * percentPerMinute}%; // 30 минут это 30 пикселей. (start-dayStartAt)/60000
+}) => ((element.start - calcDayStart) / 60000) * percentPerMinute}%;
   background-color: #ed8550f5;
-  height: ${({element}) => ((element.end - element.start) / 60000) * percentPerMinute}%; // (end-start)/60000
+  height: ${({element}) => ((element.end - element.start) / 60000) * percentPerMinute}%;
   width: 92.5%;
   border-bottom: 1px solid black;
   box-sizing: border-box;
