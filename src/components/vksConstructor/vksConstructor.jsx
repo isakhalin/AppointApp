@@ -1,26 +1,17 @@
-import React, {useState} from "react";
+import React, {useState} from 'react';
+import {useDispatch} from 'react-redux';
+import {useParams} from 'react-router-dom';
+import {AdapterMoment} from '@mui/x-date-pickers/AdapterMoment';
+import moment from 'moment/moment';
+import Stack from '@mui/material/Stack';
+import TextField from '@mui/material/TextField';
+import {LocalizationProvider} from '@mui/x-date-pickers/LocalizationProvider';
+import {TimePicker} from '@mui/x-date-pickers/TimePicker';
+import Button from '@mui/material/Button';
+import Box from '@mui/material/Box';
+import {setEvent, editEvent} from "../../store";
 
-// React ToolKit
-import {useDispatch} from "react-redux";
-
-// Import Router comps
-import {useParams} from "react-router-dom";
-
-import {AdapterMoment} from "@mui/x-date-pickers/AdapterMoment";
-import moment from "moment/moment";
-
-// Import MUI Comps
-import Stack from "@mui/material/Stack";
-import TextField from "@mui/material/TextField";
-import {LocalizationProvider} from "@mui/x-date-pickers/LocalizationProvider";
-import {TimePicker} from "@mui/x-date-pickers/TimePicker";
-import Button from "@mui/material/Button";
-import Box from "@mui/material/Box";
-
-// Import Actions
-import {setEvent, editEvent} from "../../store/actions/actions";
-
-export const VksConstructor = ({calcDayStart, calcDayEnd, currentEl, setModalOpen}) => {
+export const VksConstructor = ({currentEl, setModalOpen}) => {
   const [startValue, setStartValue] = useState(moment(currentEl.start));
   const [endValue, setEndValue] = useState(moment(currentEl.end ? currentEl.end : currentEl.start));
   const [title, setTitle] = useState(currentEl.title ? currentEl.title : "");
@@ -34,8 +25,8 @@ export const VksConstructor = ({calcDayStart, calcDayEnd, currentEl, setModalOpe
       id: currentEl.id ? currentEl.id : Math.floor((Math.random() * 1000000000)).toString(),
       title: title,
       description: description,
-      start: Number(startValue.format("x")), // 1671523200000
-      end: Number(endValue.format("x")), // 1671526800000
+      start: Number(startValue.format("x")),
+      end: Number(endValue.format("x")),
     }
     if (startValue.format("x") !== endValue.format("x")) {
       if (!currentEl.id) {

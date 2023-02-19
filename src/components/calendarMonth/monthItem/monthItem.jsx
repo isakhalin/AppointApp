@@ -1,16 +1,13 @@
 import React from 'react';
-import Typography from "@mui/material/Typography";
-import moment from "moment";
-// import Grid from "@mui/material/Grid";
-import {useSelector} from "react-redux";
-import {experimentalStyled as styled} from "@mui/material/styles";
-import Paper from "@mui/material/Paper";
+import Typography from '@mui/material/Typography';
+import moment from 'moment';
+import {useSelector} from 'react-redux';
+import {experimentalStyled as styled} from '@mui/material/styles';
+import Paper from '@mui/material/Paper';
 
-import {useNavigate} from "react-router-dom";
+import {useNavigate} from 'react-router-dom';
 
 const Item = styled(Paper)(({theme, element}) => ({
-  // backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
-  // backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : element.format('ddd') === 'сб' || element.format('ddd') === 'вс' ? 'peachpuff' : '#fff',
   backgroundColor: element.format('ddd') === 'сб' || element.format('ddd') === 'вс' ? 'peachpuff' : '#fff',
   ...theme.typography.body2,
   padding: theme.spacing(1),
@@ -32,12 +29,10 @@ export const MonthItem = ({dayElement}) => {
 
   return (
     <>
-      {/*<Grid item xs={2.33} sm={1.6} md={1} style={{backgroundColor:'white'}}>*/}
       <Item element={dayElement}
         onClick={() => navigate(`/${dayElement.year()}/${dayElement.month() + 1}/${dayElement.date()}`)}>
         <Typography
           variant="subtitle1"
-          // color="text.secondary"
           gutterBottom
         >
           {dayElement.format('DD')}
@@ -55,7 +50,6 @@ export const MonthItem = ({dayElement}) => {
           )
         )}
       </Item>
-      {/*</Grid>*/}
     </>
   );
 };

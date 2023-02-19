@@ -1,1 +1,1 @@
-export * from "./myModalButton";
+export * from './myModalButton';
