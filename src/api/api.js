@@ -8,7 +8,7 @@ const instance = axios.create({
 });
 
 export const calendarApi = {
-  fetchCalendar: () => {
+  fetchCalendar: () => {git
     return instance.get(`${BASE_URL}/getCalendar`);
   },
 
