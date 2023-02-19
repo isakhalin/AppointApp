@@ -1,5 +1,8 @@
 .App {
   text-align: center;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
 }
 
 .App-logo {
@@ -39,15 +42,22 @@
 }
 
 .content-wpr {
-  display: flex;
-  justify-content: center;
-  margin-top: 10px;
+  max-width: 350px;
+  /*display: flex;*/
+  /*justify-content: center;*/
+  /*margin: 0 auto;*/
+  /*margin: 10px 10px 0px 10px;*/
+  margin: 10px auto 0;
 }
 
 .calendar-wrp {
   position: relative;
-  margin-left: 10px;
-  width: 400px;
-  height: 780px;
+  /*margin-left: 10px;*/
+  /*max-width: 400px;*/
+  /*width: 500px;*/
+  min-width: 350px;
+  /*height: 780px;*/
+  /*height: 600px;*/
+  height: 700px;
   border: 1px solid rgb(0, 0, 0);
 }

@@ -1,14 +1,47 @@
-import React from 'react';
-import {Calendar, DateSelector} from './components';
+import React, {useEffect} from 'react';
+import {createBrowserRouter, RouterProvider} from 'react-router-dom';
+import {useDispatch} from 'react-redux';
+import {CalendarDay, DateSelector,} from './components';
+import {CalendarMonth} from './components/calendarMonth';
+import {Header} from './components/header';
+import {calendar} from './store/actions/actions';
 import './App.css';
 
 function App() {
+  const dispatch = useDispatch();
+
+  const routes = [
+    {
+      path: "/",
+      element: <CalendarMonth/>,
+    },
+    {
+      path: '/:year/:month',
+      element: <CalendarMonth/>,
+    },
+    {
+      path: '/:year/:month/:day',
+      element: <div className="content-wpr">
+        <DateSelector/>
+        <CalendarDay/>
+      </div>
+    },
+    {
+      path: '*',
+      element: <CalendarMonth/>,
+    }
+  ];
+
+  const router = createBrowserRouter(routes);
+
+  useEffect(() => {
+    dispatch(calendar());
+  }, []);
+
   return (
     <div className="App">
-      <div className="content-wpr">
-        <DateSelector/>
-        <Calendar/>
-      </div>
+      <Header/>
+      <RouterProvider router={router}/>
     </div>
   );
 }
