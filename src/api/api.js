@@ -1,9 +1,5 @@
-import axios from "axios";
-import {apiVksPlaner} from "../constants/constants.js";
-
-// BASE_URL: 'http://localhost:3005/api/v1/',
-// const BASE_URL =  'http://localhost:3005/api/v1'
-
+import axios from 'axios';
+import {apiVksPlaner} from '../constants';
 const {BASE_URL} = apiVksPlaner;
 
 const instance = axios.create({
@@ -23,6 +19,7 @@ export const calendarApi = {
   deleteEvent: (year, month, day, id) => {
     return instance.delete(`${BASE_URL}/calendar/remove/${year}/${month}/${day}/${id}`);
   },
+
   editEvent: (year, month, day, event) => {
     return instance.put(`${BASE_URL}/calendar/edit/${year}/${month}/${day}`, event);
   },

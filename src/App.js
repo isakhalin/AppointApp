@@ -3,8 +3,8 @@ import {createBrowserRouter, RouterProvider} from 'react-router-dom';
 import {useDispatch} from 'react-redux';
 import {CalendarDay, DateSelector,} from './components';
 import {CalendarMonth} from './components/calendarMonth';
-import {Header} from './components/header';
-import {calendar} from './store/actions/actions';
+import {Header} from './components';
+import {calendar} from './store';
 import './App.css';
 
 function App() {

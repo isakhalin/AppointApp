@@ -1,17 +1,8 @@
-import React, {cloneElement, useState} from 'react';
+import React, {cloneElement} from 'react';
 import Box from '@mui/material/Box';
-import Button from '@mui/material/Button';
-import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
-import TextField from "@mui/material/TextField";
-
-// Api
-// import {userProfileApi} from "../../api/api";
-// import {CouponConstructor} from "../couponConstructor/couponConstructor";
 
 const style = {
-  // display: 'flex',
-  // flexDirection: 'column',
   position: 'absolute',
   top: '50%',
   left: '50%',
@@ -28,45 +19,28 @@ const style = {
 };
 
 export const MyModal = ({modalOpen, setModalOpen, children}) => {
-
-  // const [error, setError] = useState(null);
-
-  // const handleOpen = () => setModalOpen(true);
   const handleClose = () => setModalOpen(false);
 
-  // Добавление сеттера в пропсы children для закрытия модального окна
-  children = cloneElement(children, {...children.props, handleClose})
+  children = cloneElement(children, {...children.props, handleClose});
 
   return (
-    // <div>
-    //   <Button
-    //     {...buttonProps}
-    //     onClick={handleOpen}
-    //   >
-    //     {buttonTitle.title}
-    //   </Button>
-      <Modal
-        open={modalOpen}
-        onClose={handleClose}
-        slotProps={{
-          backdrop: {
-            timeout: 500,
-            sx: {backdropFilter: 'blur(10px)'}
-          },
-        }}
-        aria-labelledby="modal-modal-title"
-        aria-describedby="modal-modal-description"
+    <Modal
+      open={modalOpen}
+      onClose={handleClose}
+      slotProps={{
+        backdrop: {
+          timeout: 500,
+          sx: {backdropFilter: 'blur(10px)'}
+        },
+      }}
+      aria-labelledby="modal-modal-title"
+      aria-describedby="modal-modal-description"
+    >
+      <Box
+        sx={style}
       >
-        <Box
-          // component="form"
-          // noValidate={false}
-          // autoComplete="off"
-          // onSubmit={handleSubmitEditPassword}
-          sx={style}
-        >
-          {children}
-        </Box>
-      </Modal>
-    // </div>
+        {children}
+      </Box>
+    </Modal>
   );
 };

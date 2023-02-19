@@ -1,32 +1,17 @@
-// rafc - создает реакт компонент
-// clg  - console.log()
-
-import React, {useEffect, useState} from "react";
-import moment from "moment";
-
-// Import Router comps
-import {useNavigate, useParams} from "react-router-dom";
-
-// React ToolKit
-import {useSelector} from "react-redux";
-
-// Import MUI Comps
-import Button from "@mui/material/Button";
-import Box from "@mui/material/Box";
-
-// Import styles
+import React, {useState} from 'react';
+import moment from 'moment';
+import {useNavigate, useParams} from 'react-router-dom';
+import {useSelector} from 'react-redux';
+import {VksConstructor, VksElement, MyModal} from '../../components';
+import Button from '@mui/material/Button';
+import Box from '@mui/material/Box';
 import classes from './calendarDay.module.css';
-
-// Import custom comps
-import {VksConstructor} from "../vksConstructor";
-import {VksElement} from "./vksElement";
-import {MyModal} from "../modals";
 
 export const CalendarDay = () => {
   const [dayStartAt, setDayStartAt] = useState("09:00:00");
   const [dayEndAt, setDayEndAt] = useState("19:00:00");
   const [modalOpen, setModalOpen] = useState(false);
-  const [currentEl, setCurrentEl] = useState({title: ``})
+  const [currentEl, setCurrentEl] = useState({title: ``});
 
   const {calendar} = useSelector((state) => state.calendarReducer);
 
@@ -37,7 +22,7 @@ export const CalendarDay = () => {
     console.log("EL", el);
     setCurrentEl(el);
     setModalOpen(true);
-  }
+  };
 
   const date = moment(`${params.year}.${params.month}.${params.day}`);
   const vks = calendar[date.year()]?.[date.month() + 1]?.[date.date()];
@@ -49,7 +34,6 @@ export const CalendarDay = () => {
     return +moment(`${params.year}.${params.month}.${params.day} ${dayEndAt}`).format('x');
   };
 
-  //Вариант 1 для заполнения дня
   /**
    *
    * @param startDay {Number} старт счетчика
@@ -80,9 +64,7 @@ export const CalendarDay = () => {
               boxSizing: "border-box",
               fontSize: "9px",
               textAlign: "left",
-
             }}
-
           >
             <div
               style={{

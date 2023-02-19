@@ -1,6 +1,5 @@
 import {createSlice} from '@reduxjs/toolkit';
-
-import {calendar, setEvent, deleteEvent, editEvent} from '../actions/actions';
+import {calendar, setEvent, deleteEvent, editEvent} from '../actions';
 
 const initialState = {
   calendar: {

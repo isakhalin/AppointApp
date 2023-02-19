@@ -1,1 +1,1 @@
-export * from "./vksElement"
+export * from './vksElement';
