@@ -19,7 +19,6 @@ export const CalendarDay = () => {
   const params = useParams();
 
   const handleModalOpen = (el) => {
-    console.log("EL", el);
     setCurrentEl(el);
     setModalOpen(true);
   };
