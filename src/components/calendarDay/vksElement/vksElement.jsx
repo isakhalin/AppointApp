@@ -1,6 +1,6 @@
 import React from 'react';
 import {useDispatch} from 'react-redux';
-import {useParams} from "react-router-dom";
+import {useParams} from 'react-router-dom';
 import styled from '@emotion/styled';
 import DeleteOutlinedIcon from '@mui/icons-material/DeleteOutlined';
 import {deleteEvent} from '../../../store';
