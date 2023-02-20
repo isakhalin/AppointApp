@@ -20,7 +20,6 @@ export const CalendarMonth = () => {
   const daysInMonth = date.daysInMonth();
   const year = date.year();
   const month = date.month() + 1;
-  const day = date.date();
   const startOfMonth = date.startOf('month').format('dddd');
 
   const nextMonth = () => {
@@ -30,6 +29,7 @@ export const CalendarMonth = () => {
       return nextMonth;
     });
   }
+
   const prevMonth = () => {
     setDate((prevState) => {
       const prevMonth = moment(new Date(prevState.year(), prevState.month() - 1));

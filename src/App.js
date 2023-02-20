@@ -1,9 +1,7 @@
 import React, {useEffect} from 'react';
 import {createBrowserRouter, RouterProvider} from 'react-router-dom';
 import {useDispatch} from 'react-redux';
-import {CalendarDay, DateSelector,} from './components';
-import {CalendarMonth} from './components';
-import {Header} from './components';
+import {CalendarDay, DateSelector, CalendarMonth, Header} from './components';
 import {calendar} from './store';
 import './App.css';
 
